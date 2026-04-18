@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projektansökan</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Your existing global styles -->
+  <link rel="stylesheet" href="styles/tokens.css">
+  <link rel="stylesheet" href="styles/base.css">
+  <link rel="stylesheet" href="styles/nav.css">
+  <link rel="stylesheet" href="styles/layout.css">
+  <link rel="stylesheet" href="styles/nav.css">
+
+  <!-- This form's scoped styles -->
+  <link rel="stylesheet" href="styles/form.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+  <header class="nav">
+    <div class="container nav__inner">
+      <div class="nav__left">OBOS</div>
+
+      <nav class="nav__center">
+        <a href="index.html" class="nav__link ">Hem</a>
+        <a href="takstolar.html" class="nav__link active">Takstolar</a>
+        <a href="#" class="nav__link">Om oss</a>
+        <a href="#" class="nav__link">Kontakt</a>
+      </nav>
+
+      <div class="nav__right">
+        <a href="#" class="btn btn--ghost">Kontakta oss</a>          
+<a href="begäroffert.html" class="btn btn--primary">Begär offert</a>  
+     
+<div class="nav__toggle">
+    <span></span>
+    <span></span>
+    <span></span>
+</div>
+</div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero__inner">
+      <div class="hero__content">
+        <div class="eyebrow-container">
+            <div class="eyebrow-rule"></div>
+            <div class="eyebrow-label">OBOS division</div>
+        </div>
+
+        <h1>SKICKA DIN FÖRFRÅGAN. </h1>
+        <p class="hero__text">
+          Specialiserad tillverkning av takstolar för industriellt byggande.
+        </p>
+
+       <div class="btn-group">
+          <a href="#" class="btn btn--primary">Se produkter</a>
+          <a href="#" class="btn btn--ghost">Kontakta oss</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="container">
+
+      <div class="pf-wrap">
+
+        <!-- Page header -->
+        <div class="pf-head">
+          <h1>Projektansökan</h1>
+          <p>Fyll i dina uppgifter så återkommer vi inom 2 arbetsdagar.</p>
+        </div>
+
+        <form id="projectForm" novalidate>
+
+          <!-- ── Contact ── -->
+          <div class="pf-section">Kontaktuppgifter</div>
+          <div class="pf-grid">
+
+            <div class="pf-field">
+              <label for="namn">Namn</label>
+              <input id="namn" name="namn" type="text" placeholder="Ditt namn" required>
+            </div>
+
+            <div class="pf-row">
+              <div class="pf-field">
+                <label for="epost">E-post</label>
+                <input id="epost" name="epost" type="email" placeholder="din@email.se" required>
+              </div>
+              <div class="pf-field">
+                <label for="telefon">Telefon</label>
+                <input id="telefon" name="telefon" type="tel" placeholder="070-123 45 67">
+              </div>
+            </div>
+
+          </div>
+
+          <!-- ── Project ── -->
+          <div class="pf-section">Om projektet</div>
+          <div class="pf-grid">
+
+            <div class="pf-field">
+              <label for="beskrivning">Projektbeskrivning</label>
+              <textarea
+                id="beskrivning"
+                name="beskrivning"
+                rows="4"
+                placeholder="Kort beskrivning av projektet, plats och önskad tidslinje..."
+              ></textarea>
+            </div>
+
+          </div>
+
+          <!-- ── Files ── -->
+          <div class="pf-section">Ritningar &amp; dokument</div>
+          <div class="pf-field">
+
+            <div class="pf-drop" id="dropzone">
+              <input
+                type="file"
+                id="fileInput"
+                name="filer"
+                multiple
+                accept=".pdf,.dwg,.jpg,.jpeg,.png"
+                aria-label="Ladda upp filer"
+              >
+              <div class="pf-drop-icon">
+                <!-- Upload arrow icon -->
+                <svg viewBox="0 0 16 16" aria-hidden="true">
+                  <path d="M8 10V2M5 5l3-3 3 3M3 12v1a1 1 0 001 1h8a1 1 0 001-1v-1"/>
+                </svg>
+              </div>
+              <p>Dra och släpp filer här</p>
+              <span>PDF, DWG, JPG — max 20 MB per fil</span>
+            </div>
+
+            <!-- Populated by JS -->
+            <div class="pf-files" id="fileList" aria-live="polite"></div>
+
+          </div>
+
+          <!-- ── Submit ── -->
+          <button class="pf-submit" type="submit">
+            Skicka in ansökan
+          </button>
+          <p class="pf-note">Dina uppgifter hanteras konfidentiellt.</p>
+
+        </form>
+      </div><!-- /.pf-wrap -->
+
+    </div><!-- /.container -->
+  </section>
+
+
+
+</body>
+</html>
