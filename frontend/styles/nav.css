@@ -17,12 +17,13 @@
 
 .nav__link {
   position: relative;
-  color: var(--color-white);
+  color: var(--color-neutral-100);
+  /* color: var(--color-blue-50); */
   text-decoration: none;
 }
 
 /* underline (hidden by default) */
-.nav__link::after {
+.nav__link::after { 
   content: "";
   position: absolute;
   left: 0;
@@ -43,9 +44,19 @@
   transform: scaleX(1);
 }
 
+.nav__link:hover{
+        color: var(--color-white);
+
+}
+
 /* ACTIVE PAGE */
 .nav__link.active::after {
   transform: scaleX(1);
+}
+
+.nav__link.active{
+        color: var(--color-white);
+
 }
 
 .nav__inner {
@@ -129,7 +140,7 @@
     transform: translateY(0);
     transition: transform 0.3s ease;
   }
-
+ 
   .nav__toggle {
     display: flex;
     justify-self: end;

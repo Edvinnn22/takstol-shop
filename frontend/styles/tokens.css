@@ -119,7 +119,7 @@
   --shadow-sm:     0 4px 6px rgba(0, 0, 0, 0.05);
   --shadow-md:     0 10px 20px rgba(0, 0, 0, 0.08);
   --shadow-lg:     0 20px 40px rgba(0, 0, 0, 0.10);
-  --shadow-accent: 0 10px 20px rgba(217, 130, 43, 0.20); /* CTA glow */
+  --shadow-accent: 0 1px 20px rgba(217, 130, 43, 0.20); /* CTA glow */
   --shadow-inset:  inset 0 2px 4px rgba(0, 0, 0, 0.06);
 
 

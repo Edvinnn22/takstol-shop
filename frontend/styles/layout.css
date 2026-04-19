@@ -12,7 +12,7 @@
   padding-top: calc(var(--space-section) + var(--nav-height));
    /* margin-bottom: calc(-1 * var(--nav-height)); */
   padding-bottom: calc(var(--space-section) + var(--nav-height));
-  border-bottom: 1px solid var(--color-neutral-700);
+  border-bottom: 1px solid var(--color-orange-900);
 }
 
 /* Noise texture overlay */
@@ -34,8 +34,13 @@
 
 .hero__content {
   max-width: var(--max-width-narrow);
-}
+} 
 
 .hero__text {
   padding-bottom: var(--space-8);
+  color: var(--color-neutral-100);
+}
+
+.hero__products{
+  padding-bottom: var(--space-section);
 }
