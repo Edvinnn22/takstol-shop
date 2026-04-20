@@ -1,0 +1,10 @@
+.faq-section {
+    background-color: var(--color-neutral-50);
+    padding-top: var(--space-section);
+    padding-bottom: var(--space-section);
+}
+
+.faqs_container {
+    /* remove background + height */
+    height: 50vh;
+}

@@ -1,0 +1,10 @@
+.steps-section {
+    background-color: var(--color-white);
+    padding-top: var(--space-section);
+    padding-bottom: var(--space-section);
+}
+
+.steps_container {
+    /* remove background + height */
+    height: 100vh;
+}

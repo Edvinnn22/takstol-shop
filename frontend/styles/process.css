@@ -48,7 +48,7 @@
   align-items: center;
   justify-content: center;
 
-  background: var(--color-blue-50);
+  background: var(--color-blue-100);
   border-radius: var(--radius-md);
 
   font-size: 20px;
@@ -57,7 +57,7 @@
 .card__content h4 {
   margin-bottom: var(--space-2);
   font-size: var(--text-lg);
-  color: var(--color-navy-800);
+  color: var(--color-blue-800);
 }
 
 .card__content p {
@@ -81,7 +81,7 @@
   height: 420px;
   border-radius: var(--radius-xl);
 
-  background: var(--color-navy-800);
+  background: var(--color-blue-800);
   /* background: url('/your-image.png') center/cover no-repeat; */
 }
 
