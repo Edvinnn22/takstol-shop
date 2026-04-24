@@ -22,7 +22,7 @@
 </head>
 <body>
     
-<!-- NAVBAR -->
+<!-- NAVBAR --> 
   <header class="nav">
     <div class="container nav__inner">
       <div class="nav__left">
@@ -31,7 +31,7 @@
       </div>
 
       <nav class="nav__center">
-        <a href="index.html" class="nav__link ">Hem</a>
+        <!-- <a href="index.html" class="nav__link ">Hem</a> -->
         <a href="takstolar.html" class="nav__link">Takstolar</a>
         <a href="sa-fungerar-det.html" class="nav__link active">Så fungerar det</a>
         <a href="#" class="nav__link">Om oss</a>
@@ -39,7 +39,7 @@
       </nav>
 
       <div class="nav__right">
-        <a href="#" class="btn btn--ghost">Kontakta oss</a>          
+        <a href="#" class="btn btn--ghost">Teknisk rådgivning</a>          
 <a href="begar-offert.html" class="btn btn--primary">Begär offert</a>  
      
 <div class="nav__toggle">
@@ -75,64 +75,47 @@
 
     <main>
         <section class="container process__container">
-  <div class="process__grid">
-    
-    <!-- LEFT -->
-    <div class="process__left">
-      <div class="eyebrow-container">
-        <div class="eyebrow-rule-green"></div>
-        <div class="eyebrow-label" style="color:var(--color-green-900);">innan du börjar</div>
-      </div>
+          <div class="eyebrow-container">
+            <div class="eyebrow-rule-green"></div>
+            <div class="eyebrow-label-green" >INNAN du börjar</div>
+        </div>
 
-      <h2 style="color: var(--color-blue-900);">Vad behöver du förbereda?</h2>
-      <p style="color: var(--color-neutral-800);">För att vi ska kunna ge dig en exakt offert och påbörja produktionen direkt efter godkännande behöver vi rätt underlag från dig. Ju mer komplett materialet är, desto snabbare går det.</p>
-
-      <div class="card__container">
-
-  <div class="card">
-    <div class="card__icon">📄</div>
-    <div class="card__content">
-      <h4>Bygglovsritningar (PDF eller DWG)</h4>
-      <p>Plan-, fasad- och sektionsritningar med skalangivelse. Används för att beräkna spännvidd och takvinkel.</p>
-    </div>
+         <h2 class="h2-blue" style="padding-bottom: var(--space-12);">Det här behöver vi från dig. </h2>
+       
+  <div class="process-steps">
+  <div class="step">
+    <div class="step__number">01</div>
+    <div class="step__icon">📄</div>
+    <h4>Bygglovsritningar</h4>
+    <p>Plan-, fasad- och sektionsritningar med skalangivelse. PDF eller DWG.</p>
+    <span class="step__tag">PDF · DWG · DXF</span>
   </div>
 
-  <div class="card">
-    <div class="card__icon">🏠</div>
-    <div class="card__content">
-      <h4>Byggnadens dimensioner</h4>
-      <p>Total spännvidd (mm), takhöjd, nockhöjd och c/c-avstånd för takstolarna (vanligtvis 600, 900 eller 1200 mm).</p>
-    </div>
+  <div class="step">
+    <div class="step__number">02</div>
+    <div class="step__icon">🏠</div>
+    <h4>Byggnadens mått</h4>
+    <p>Total spännvidd (mm), nockhöjd och c/c-avstånd.</p>
+    <span class="step__tag">Vanligen 600–1200 mm</span>
   </div>
 
-  <div class="card">
-    <div class="card__icon">⏱</div>
-    <div class="card__content">
-      <h4>Lastspecifikationer</h4>
-      <p>Snölast (kN/m²), vindzon och eventuella punktlaster eller takfönster. Hämtas ur din PBL-ansökan.</p>
-    </div>
+  <div class="step">
+    <div class="step__number">03</div>
+    <div class="step__icon">🎯</div>
+    <h4>Lastspecifikationer</h4>
+    <p>Snölast (kN/m²) och vindzon enligt PBL.</p>
+    <span class="step__tag">Eurokod 5</span>
   </div>
 
-  <div class="card">
-    <div class="card__icon">📈</div>
-    <div class="card__content">
-      <h4>Önskad leveransadress & datum</h4>
-      <p>Vi planerar produktionen bakåt från önskad leveransdag. Minst 5 arbetsdagars framförhållning krävs.</p>
-    </div>
+  <div class="step">
+    <div class="step__number">04</div>
+    <div class="step__icon">📦</div>
+    <h4>Önskad leveransdag</h4>
+    <p>Minst 5 arbetsdagars framförhållning.</p>
+    <span class="step__tag">Min. 5 arbetsdagar</span>
   </div>
 
 </div>
-
-
-
-    </div>
-
-    <!-- RIGHT -->
-    <div class="process__right">
-      <div class="process__image"></div>
-    </div>
-
-  </div>
 </section>
 
    <section class="steps-section">
@@ -140,12 +123,12 @@
     <div class="step-by-step">
       <div class="eyebrow-container">
         <div class="eyebrow-rule-green"></div>
-        <div class="eyebrow-label" style="color:var(--color-green-900);">
+        <div class="eyebrow-label-green">
           steg för steg
         </div>
       </div>
-  <h2 style="color: var(--color-blue-900);">Fyra steg. Inga överraskningar. </h2>
-      <p style="color: var(--color-neutral-500);">Varje steg har en tydlig ansvarspart, ett förväntat resultat och en tidsram.</p>
+  <h2 class="h2-blue">Från förfrågan till leverans. </h2>
+      <p class="muted">Varje steg har en tydlig ansvarspart, ett förväntat resultat och en tidsram.</p>
 
 
 
@@ -160,14 +143,49 @@
     <div class="faq">
       <div class="eyebrow-container">
         <div class="eyebrow-rule-green"></div>
-        <div class="eyebrow-label" style="color:var(--color-green-900);">
+        <div class="eyebrow-label-green" >
           vanliga frågor
         </div>
       </div>
-  <h2 style="color: var(--color-blue-900);">Svar på det du undrar. </h2>
-      <p style="color: var(--color-neutral-500);"> Hittar du inte svaret? Ring oss direkt på 010-123 45 67 — vi svarar alla vardagar 07–16.</p>
+  <h2 class="h2-blue">Det du troligtvis undrar. </h2>
+      <p class="muted" > Svar på alla vanligaste frågorna. </p>
+
+<div class="accordion">
+
+  <div class="accordion__item">
+    <button class="accordion__header">
+      <span>Hur lång tid tar det egentligen?</span>
+      <span class="accordion__icon">
+        <span class="accordion__plus">+</span>
+      </span>
+    </button>
+    <div class="accordion__content">
+      <p>
+        Från godkänd offert räknar vi 3–5 arbetsdagar till leverans. Kortast vi klarat är 2 dagar vid enkla konstruktioner. Gransknings- och offertsteg tar 1–2 dagar — sedan är det din svarstid som avgör starten.
 
 
+      </p>
+    </div>
+  </div>
+
+  <div class="accordion__item">
+    <button class="accordion__header">
+      <span>Vad händer om mina ritningar inte är kompletta?</span>
+      <span class="accordion__icon">
+        <span class="accordion__plus">+</span>
+      </span>
+    </button>
+    <div class="accordion__content">
+      <p>
+        Vår konstruktör granskar alltid underlaget innan offert tas fram. Om information saknas — snölast, exakt spännvidd eller c/c-mått — kontaktar vi dig direkt. Vi kan ofta komplettera med standardvärden för din region, men vi vill ha din bekräftelse på alla antaganden.
+
+
+      </p>
+    </div>
+  </div>
+
+</div> 
+      <p class="muted" style="padding-top: var(--space-6);" > Hittar du inte svaret? Ring oss direkt på <span style="color: var(--color-blue-400);">010-123 45 67</span> — vi svarar alla vardagar 07–16.</p>
 
 
     </div>
@@ -182,5 +200,6 @@
 
 
 <script src="js/main.js"></script>
+<script src="js/accordion.js"></script>
 </body>
 </html>

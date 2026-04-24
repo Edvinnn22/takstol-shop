@@ -1,0 +1,16 @@
+/* FULL WIDTH BACKGROUND */
+.aboutus__container {
+  background-color: var(--color-blue-900);
+  padding-top: var(--space-section);
+  padding-bottom: var(--space-section);
+
+}
+
+/* CONSTRAINED CONTENT */
+.aboutus__wrapper {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+  
+}

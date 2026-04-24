@@ -1,48 +1,55 @@
-.process__grid {
-  display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  gap: var(--space-16);
-  align-items: start;
-  padding-top: var(--space-section);
+.process__container {
   padding-bottom: var(--space-section);
+  padding-top: var(--space-section);
+  /* height: fit-content;
+  max-height: 100vh; */
 }
 
-.process__left h2 {
-  margin-bottom: var(--space-4);
-}
-
-.process__left p {
-  margin-bottom: var(--space-8);
-  max-width: var(--max-width-narrow);
-}
-
-
-
-.card__container {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-}
-
-.card {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-4);
-
-  padding: var(--space-6);
-  border-radius: var(--radius-lg);
+.process-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
 
   background: var(--color-white);
   border: 1px solid var(--color-neutral-200);
+  border-radius: var(--radius-2xl);
 
-  transition: all var(--transition-base);
+  overflow: hidden;
 }
 
+/* each column */
+.step {
+  position: relative;
+  padding: var(--space-8);
 
-.card__icon {
-  width: 48px;
-  height: 48px;
-  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+
+  border-right: 1px solid var(--color-neutral-200);
+}
+
+.step:last-child {
+  border-right: none;
+}
+
+/* BIG FADED NUMBER */
+.step__number {
+  position: absolute;
+  top: 1px;
+  right: 24px;
+
+  font-family: var(--font-heading);
+  font-size: 64px;
+  color: var(--color-neutral-400);
+
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* ICON */
+.step__icon {
+  width: 44px;
+  height: 44px;
 
   display: flex;
   align-items: center;
@@ -51,48 +58,57 @@
   background: var(--color-blue-100);
   border-radius: var(--radius-md);
 
-  font-size: 20px;
+  font-size: 18px;
 }
 
-.card__content h4 {
-  margin-bottom: var(--space-2);
+/* TITLE */
+.step h4 {
   font-size: var(--text-lg);
-  color: var(--color-blue-800);
+  color: var(--color-blue-900);
 }
 
-.card__content p {
+/* TEXT */
+.step p {
   font-size: var(--text-sm);
-  color: var(--color-neutral-500);
+  color: var(--color-neutral-600);
   line-height: var(--leading-relaxed);
 }
 
-.card:hover {
-  box-shadow: var(--shadow-sm);
-  border-color: var(--color-blue-200);
-}
-/* 
-.card:hover .card__icon {
+/* TAG / PILL */
+.step__tag {
+  margin-top: auto;
+
+  display: inline-block;
+  padding: 6px 12px;
+
+  font-size: 12px;
+  border-radius: var(--radius-pill);
+
   background: var(--color-blue-100);
-} */
-
-
-.process__image {
-  width: 100%;
-  height: 420px;
-  border-radius: var(--radius-xl);
-
-  background: var(--color-blue-800);
-  /* background: url('/your-image.png') center/cover no-repeat; */
+  color: var(--color-blue-800);
 }
 
+/* HOVER (subtle) */
+.step:hover {
+  background: var(--color-green-50);
+}
 
-
+/* RESPONSIVE */
 @media (max-width: 1024px) {
-  .process__grid {
+  .process-steps {
     grid-template-columns: 1fr;
   }
 
-  .process__right {
-    order: -1; /* image on top (like modern sites) */
+  .step {
+    border-right: none;
+    border-bottom: 1px solid var(--color-neutral-200);
+  }
+
+  .step:last-child {
+    border-bottom: none;
+  }
+
+  .step__number {
+    font-size: 48px;
   }
 }

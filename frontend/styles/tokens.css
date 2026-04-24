@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+
+
 :root {
  
 
@@ -13,8 +17,8 @@
 --color-blue-800: #002169; /* Hav */
 --color-blue-900: #001a50;
 
-/* OBOS Grønn (secondary green) */
---color-green-50:  #e6f5f0; /* Lys Lyng */
+/* OBOS Grön (secondary green) */
+--color-green-50:  #e6f5f0;  /* POSSIBLE BACKGROUND */
 --color-green-100: #cdece2; /* Lyng */
 --color-green-200: #cdece2;
 --color-green-400: #008761; /* OBOS Grønn */
@@ -139,8 +143,8 @@
 
 
   /* ── NOISE TEXTURE ───────────────────────────────────────── */
-
+/* 
   --noise-opacity: 0.02;
-  --noise-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --noise-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); */
 
 }

@@ -1,0 +1,16 @@
+/* FULL WIDTH BACKGROUND */
+.productview__container {
+  background-color: var(--color-white);
+  padding-top: var(--space-section);
+  padding-bottom: var(--space-section);
+}
+
+/* CONSTRAINED CONTENT */
+.productview__wrapper {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+    height: 50vh;
+  
+}

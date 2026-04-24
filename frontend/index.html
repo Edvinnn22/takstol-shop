@@ -3,6 +3,7 @@
   <title>OBOS</title>
 
   <!-- Fonts -->
+   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 
@@ -12,9 +13,14 @@
   <link rel="stylesheet" href="styles/nav.css" />
   <link rel="stylesheet" href="styles/layout.css" />
   <link rel="stylesheet" href="styles/nav.css" />
+  <link rel="stylesheet" href="styles/usp.css" />
+  <link rel="stylesheet" href="styles/productview.css" />
+  <link rel="stylesheet" href="styles/steps.css" />
+  <link rel="stylesheet" href="styles/aboutus.css" />
+  <link rel="stylesheet" href="styles/form.css" />
 
 
-  
+   
 </head>
 <body>
 
@@ -26,7 +32,7 @@
       </div>
 
       <nav class="nav__center">
-        <a href="index.html" class="nav__link active">Hem</a>
+        <!-- <a href="index.html" class="nav__link active">Hem</a> -->
         <a href="takstolar.html" class="nav__link">Takstolar</a>
         <a href="sa-fungerar-det.html" class="nav__link">Så fungerar det</a>
         <a href="#" class="nav__link">Om oss</a>
@@ -34,7 +40,7 @@
       </nav>
 
       <div class="nav__right">
-        <a href="#" class="btn btn--ghost">Kontakta oss</a>          
+        <a href="#" class="btn btn--ghost">Teknisk rådgivning</a>          
 <a href="begar-offert.html" class="btn btn--primary">Begär offert</a>  
      
 <div class="nav__toggle">
@@ -57,20 +63,207 @@
 
         <h1>PRECISION I VARJE VINKEL.</h1>
         <p class="hero__text">
-          Specialiserad tillverkning av takstolar för industriellt byggande.
+Vi tillverkar takstolar för villor, radhus och flerfamiljshus — med exakta mått, snabb leverans och full ingenjörsdokumentation.
+
         </p>
 
         <div class="btn-group">
-          <a href="takstolar.html" class="btn btn--primary">Se takstolar</a>
-          <a href="#" class="btn btn--ghost">Kontakta oss</a>
+          <a href="begar-offert.html" class="btn btn--primary">Begär offert -></a>
+          <a href="takstolar.html" class="btn btn--ghost">Se produkter</a>
         </div>
       </div>
     </div>
   </section>
 
-  <main style="height: 100vh;">
+  <main  style="background-color: var(--color-white);" >
+  <section class="container usp-strip__container">
 
-  </main>
+    <div class="usp-strip">
+
+      <div class="usp">
+        <!-- <div class="usp__icon">🏡</div> -->
+        <div class="usp__content">
+  <p class="usp__title">BIM-kompatibel leverans
+</p>
+        <p class="usp__text">IFC- och DWG-filer ingår i varje beställning.
+</p>
+        </div>
+      
+      </div>
+
+      <div class="usp">
+        <!-- <div class="usp__icon">🌱</div> -->
+       <div class="usp__content">
+         <p class="usp__title">5 dagars leveranstid
+</p>
+        <p class="usp__text">Från godkänd ritning till fabrik på fem arbetsdagar.
+</p>
+</div>
+      </div>
+
+      <div class="usp">
+        <!-- <div class="usp__icon">🤝</div> -->
+       <div class="usp-container">
+       <div class="usp__content">
+          <p class="usp__title">Eurokod 5-certifierat
+</p>
+        <p class="usp__text">All beräkning och dokumentation uppfyller SS-EN 1995.
+</p>
+       </div>
+       </div>
+      </div>
+
+      <div class="usp">
+        <!-- <div class="usp__icon">🤝</div> -->
+       <div class="usp__content">
+         <p class="usp__title">±1 mm tolerans
+
+</p>
+        <p class="usp__text">CNC-styrd produktionslinje med laserkalibrering.
+
+</p>
+       </div>
+      </div>
+
+    </div>
+
+  </section>
+
+    <section class=" productview__container" style="background-color: var(--color-neutral-50);">
+        <div class="productview__wrapper">
+           <div class="eyebrow-container">
+            <div class="eyebrow-rule-green"></div>
+            <div class="eyebrow-label-green">standard takstolar</div>
+        </div>
+          <h2 class="h2-blue">Takstolar för alla konstruktioner.</h2>
+      
+
+        </div>
+    </section>
+
+
+
+
+     <section class="steps-section" >
+  <div class="container steps_container">
+    <div class="step-by-step">
+      <div class="eyebrow-container">
+        <div class="eyebrow-rule-green"></div>
+        <div class="eyebrow-label-green">
+          processen
+        </div>
+      </div>
+  <h2 class="h2-blue">Från ritning till leverans. </h2>
+      <p class="muted"> Ingen gissning. Du vet var ditt projekt befinner sig varje dag.</p>
+
+  <div class="process-steps">
+
+  <div class="step" id="step1">
+    <div class="step__number">01</div>
+    <div class="step__icon"> 
+<!-- <img src="assets/icons/Document_icon.svg" />   -->
+<svg viewBox="0 0 24 24" class="icon">
+  <path d="..." />
+</svg>  
+</div>
+    <h4>Ladda upp ritningar
+</h4>
+    <p>Skicka in PDF, DWG eller IFC-filer med dina mått och konstruktionsspecifikationer.
+
+</p>
+    <span class="step__tag">Dag 1 · ~15 min
+</span>
+  </div>
+
+  <div class="step" id="step2">
+    <div class="step__number">02</div>
+    <div class="step__icon">
+      <!-- <img src="assets/icons/checkmark_icon.svg" />    -->
+      <svg viewBox="0 0 24 24" class="icon">
+  <path d="..." />
+</svg> 
+
+    </div>
+    <h4>Ingenjörsgranskning</h4>
+    <p>Våra konstruktörer granskar projektet och återkommer med offert och statikdokumentation.
+
+</p>
+    <span class="step__tag">Dag 1–2
+</span>
+  </div>
+
+  <div class="step" id="step3">
+    <div class="step__number">03</div>
+    <div class="step__icon">
+      <!-- <img src="assets/icons/uptrend_chart_icon.svg" />    -->
+      <svg viewBox="0 0 24 24" class="icon">
+  <path d="..." />
+</svg> 
+
+    </div>
+    <h4>Produktion & CNC
+</h4>
+    <p>Precisionskapning och montering med CNC-styrd utrustning och fullständig kvalitetskontroll.
+
+</p>
+    <span class="step__tag">Dag 3–4
+</span>
+  </div>
+
+  <div class="step" id="step4">
+    <div class="step__number">04</div>
+    <div class="step__icon">
+      <!-- <img src="assets/icons/truck_icon.svg" />   -->
+      <svg viewBox="0 0 24 24" class="icon">
+  <path d="..." />
+</svg>  
+      
+    </div>
+    <h4>Leverans på plats
+</h4>
+    <p>Märkta takstolar levereras med kranbil, monteringsplan och CE-dokumentation.
+
+</p>
+    <span class="step__tag">Dag 5
+</span>
+  </div>
+
+</div>
+    </div>
+    <div class="step-button">
+      <a href="#">Se hela processen steg för steg -></a>
+    </div>
+  </div>
+</section>
+
+
+    <section class=" aboutus__container" >
+        <div class="aboutus__wrapper">
+           <div class="eyebrow-container">
+            <div class="eyebrow-rule"></div>
+            <div class="eyebrow-label">om oss</div>
+        </div>
+          <h3 class="h3-white">
+            Över 25 år av precisionshantverkande
+</h3>
+<p class="light">
+  Certifierade konstruktörer. Kontrollerad tillverkning. Inga överraskningar.
+
+
+</p>
+      
+
+        </div>
+    </section>
+
+
+
+
+
+
+
+
+</main>
 
 
   <script src="js/main.js" defer></script>

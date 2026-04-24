@@ -8,3 +8,92 @@
     /* remove background + height */
     height: 50vh;
 }
+
+
+ 
+.accordion {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+/* ITEM */
+.accordion__item {
+  border-bottom: 1px solid var(--color-neutral-200); 
+  overflow: hidden;
+}
+
+/* HEADER */
+.accordion__header {
+  width: 100%;
+  padding-bottom: var(--space-5);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  font-size: var(--text-md);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-blue-900);
+
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.accordion__header:hover {
+  color: var(--color-blue-400);
+}
+
+/* ICON */
+.accordion__icon {
+  width: 32px;
+  height: 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid var(--color-neutral-300);
+  border-radius: 50%;
+
+}
+
+.accordion__plus {
+  display: inline-block;
+  transition: transform var(--transition-base);
+}
+
+/* CONTENT (animated height trick) */
+.accordion__content {
+  max-height: 0;
+  overflow: hidden;
+
+}
+
+.accordion__content p {
+  padding-bottom: var(--space-5);
+  color: var(--color-neutral-600);
+}
+
+/* OPEN STATE */
+/* .accordion__item.active {
+  box-shadow: var(--shadow-sm);
+  border-color: var(--color-blue-200);
+} */
+
+
+
+.accordion__item.active .accordion__content {
+  max-height: 200px; 
+  padding-top: var(--space-2);
+}
+
+.accordion__item.active .accordion__icon {
+  background-color: var(--color-blue-900);
+}
+
+.accordion__item.active .accordion__plus {
+  transform: rotate(45deg);
+  color: var(--color-blue-400);
+}
