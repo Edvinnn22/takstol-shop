@@ -9,7 +9,6 @@ const svgs = {
     <line x1="55" y1="60" x2="100" y2="20" stroke="currentColor" stroke-width="1" opacity="0.3" stroke-dasharray="3,2"/>
     <line x1="145" y1="60" x2="100" y2="20" stroke="currentColor" stroke-width="1" opacity="0.3" stroke-dasharray="3,2"/>
   </svg>`,
-
   saxtakstol: `<svg viewBox="0 0 200 80" fill="none" xmlns="http://www.w3.org/2000/svg">
     <line x1="10" y1="65" x2="190" y2="65" stroke="currentColor" stroke-width="2.5" opacity="0.4"/>
     <line x1="10" y1="65" x2="100" y2="15" stroke="currentColor" stroke-width="2.5"/>
@@ -17,31 +16,6 @@ const svgs = {
     <line x1="30" y1="65" x2="150" y2="38" stroke="currentColor" stroke-width="1.5" opacity="0.6"/>
     <line x1="170" y1="65" x2="50" y2="38" stroke="currentColor" stroke-width="1.5" opacity="0.6"/>
   </svg>`,
-
-  pulpettakstol: `<svg viewBox="0 0 200 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <line x1="10" y1="65" x2="190" y2="65" stroke="currentColor" stroke-width="2.5" opacity="0.4"/>
-    <line x1="10" y1="65" x2="10" y2="25" stroke="currentColor" stroke-width="2.5"/>
-    <line x1="10" y1="25" x2="190" y2="45" stroke="currentColor" stroke-width="2.5"/>
-    <line x1="190" y1="45" x2="190" y2="65" stroke="currentColor" stroke-width="2.5"/>
-    <line x1="70" y1="65" x2="70" y2="37" stroke="currentColor" stroke-width="1.5" opacity="0.6"/>
-    <line x1="130" y1="65" x2="130" y2="41" stroke="currentColor" stroke-width="1.5" opacity="0.6"/>
-  </svg>`,
-
-  atakstol: `<svg viewBox="0 0 200 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <line x1="10" y1="65" x2="190" y2="65" stroke="currentColor" stroke-width="2.5" opacity="0.4"/>
-    <line x1="10" y1="65" x2="100" y2="15" stroke="currentColor" stroke-width="2.5"/>
-    <line x1="190" y1="65" x2="100" y2="15" stroke="currentColor" stroke-width="2.5"/>
-    <line x1="30" y1="65" x2="170" y2="65" stroke="currentColor" stroke-width="2" opacity="0.6"/>
-    <line x1="100" y1="15" x2="100" y2="65" stroke="currentColor" stroke-width="1.5" opacity="0.6"/>
-  </svg>`,
-
-  ramverkstakstol: `<svg viewBox="0 0 200 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <line x1="10" y1="65" x2="190" y2="65" stroke="currentColor" stroke-width="2.5" opacity="0.4"/>
-    <line x1="10" y1="65" x2="100" y2="20" stroke="currentColor" stroke-width="2.5"/>
-    <line x1="190" y1="65" x2="100" y2="20" stroke="currentColor" stroke-width="2.5"/>
-    <rect x="70" y="38" width="60" height="27" stroke="currentColor" stroke-width="1.5" opacity="0.6" fill="none"/>
-  </svg>`,
-
   mansardtakstol: `<svg viewBox="0 0 200 80" fill="none" xmlns="http://www.w3.org/2000/svg">
     <line x1="10" y1="65" x2="190" y2="65" stroke="currentColor" stroke-width="2.5" opacity="0.4"/>
     <line x1="10" y1="65" x2="45" y2="30" stroke="currentColor" stroke-width="2.5"/>
@@ -52,111 +26,132 @@ const svgs = {
     <line x1="155" y1="30" x2="155" y2="65" stroke="currentColor" stroke-width="1.5" opacity="0.6"/>
     <line x1="45" y1="30" x2="155" y2="30" stroke="currentColor" stroke-width="1.5" opacity="0.6"/>
   </svg>`,
-
-  lantbrukstakstol: `<svg viewBox="0 0 200 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <line x1="10" y1="65" x2="190" y2="65" stroke="currentColor" stroke-width="2.5" opacity="0.4"/>
-    <line x1="10" y1="65" x2="100" y2="18" stroke="currentColor" stroke-width="2.5"/>
-    <line x1="190" y1="65" x2="100" y2="18" stroke="currentColor" stroke-width="2.5"/>
-    <line x1="100" y1="18" x2="100" y2="65" stroke="currentColor" stroke-width="1.5" opacity="0.6"/>
-    <line x1="55" y1="65" x2="100" y2="42" stroke="currentColor" stroke-width="1.5" opacity="0.6"/>
-    <line x1="145" y1="65" x2="100" y2="42" stroke="currentColor" stroke-width="1.5" opacity="0.6"/>
-  </svg>`,
-
-  bagtakstol: `<svg viewBox="0 0 200 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <line x1="10" y1="65" x2="190" y2="65" stroke="currentColor" stroke-width="2.5" opacity="0.4"/>
-    <path d="M10,65 Q100,-10 190,65" stroke="currentColor" stroke-width="2.5" fill="none"/>
-    <line x1="55" y1="65" x2="63" y2="37" stroke="currentColor" stroke-width="1.2" opacity="0.6"/>
-    <line x1="100" y1="65" x2="100" y2="25" stroke="currentColor" stroke-width="1.2" opacity="0.6"/>
-    <line x1="145" y1="65" x2="137" y2="37" stroke="currentColor" stroke-width="1.2" opacity="0.6"/>
-  </svg>`,
-
-  specialtakstol: `<svg viewBox="0 0 200 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <line x1="10" y1="65" x2="190" y2="65" stroke="currentColor" stroke-width="2.5" opacity="0.4"/>
-    <line x1="10" y1="65" x2="70" y2="18" stroke="currentColor" stroke-width="2.5"/>
-    <line x1="70" y1="18" x2="130" y2="30" stroke="currentColor" stroke-width="2.5"/>
-    <line x1="130" y1="30" x2="190" y2="18" stroke="currentColor" stroke-width="2.5"/>
-    <line x1="190" y1="18" x2="190" y2="65" stroke="currentColor" stroke-width="2.5"/>
-    <line x1="70" y1="18" x2="70" y2="65" stroke="currentColor" stroke-width="1.5" opacity="0.6"/>
-    <line x1="130" y1="30" x2="130" y2="65" stroke="currentColor" stroke-width="1.5" opacity="0.6"/>
-  </svg>`
 };
 
-const products = [
-  {
-    id: "fackverkstakstol",
-    namn: "Fackverkstakstol",
-    beskrivning: "Klassisk fackverk med diagonalstänger. Lämplig för stora spännvidder och industribyggnader.",
-    tag: "Vanligast"
-  },
-  {
-    id: "saxtakstol",
-    namn: "Saxtakstol",
-    beskrivning: "Korsande underspänn ger högt inre utrymme. Används ofta vid öppen planlösning.",
-    tag: "Populär"
-  },
-  {
-    id: "pulpettakstol",
-    namn: "Pulpettakstol",
-    beskrivning: "Enkel lutning med ett tak-plan. Enkel konstruktion, lämplig för tillbyggnader.",
-    tag: "Enkel"
-  },
-  {
-    id: "atakstol",
-    namn: "A-takstol",
-    beskrivning: "Symmetrisk form med mittupplag. Standard för bostäder med sadeltak.",
-    tag: "Standard"
-  },
-  {
-    id: "ramverkstakstol",
-    namn: "Ramverkstakstol",
-    beskrivning: "Integrerat ramverk ger extra styvhet. Passar vid höga vindlaster.",
-    tag: "Robust"
-  },
-  {
-    id: "mansardtakstol",
-    namn: "Mansardtakstol",
-    beskrivning: "Bruten takform med brant nederdel. Möjliggör bostadsyta under takfallet.",
-    tag: "Platseffektiv"
-  },
-  {
-    id: "lantbrukstakstol",
-    namn: "Lantbrukstakstol",
-    beskrivning: "Förstärkt konstruktion för tunga laster. Anpassad för lantbruksbyggnader.",
-    tag: "Industri"
-  },
-  {
-    id: "bagtakstol",
-    namn: "Bågtakstol",
-    beskrivning: "Böjd överkant för estetisk profil och effektiv lastfördelning.",
-    tag: "Design"
-  },
-  {
-    id: "specialtakstol",
-    namn: "Specialtakstol",
-    beskrivning: "Kundanpassad konstruktion för unika krav. Projekteras efter behov.",
-    tag: "Anpassad"
-  }
-];
+const page = window.location.pathname;
 
-const container = document.getElementById('products-container');
+if (page.includes('takstolar-variant.html')) {
+  loadVariants();
+} else if (page.includes('index.html') || page === '/' || page === '') {
+  loadFamilies(3);
+} else {
+  loadFamilies();
+}
 
-products.forEach(product => {
-  const card = document.createElement('div');
-  card.className = 'product-card';
+// --- LEVEL 1: Family cards ---
+async function loadFamilies(limit = null) {
+  const container = document.getElementById('products-container');
+  if (!container) return;
 
-  card.innerHTML = `
-    <div class="product-card__image">
-      ${svgs[product.id]}
-    </div>
-    <div class="product-card__body">
-      <p class="product-card__name">${product.namn}</p>
-      <p class="product-card__desc">${product.beskrivning}</p>
-    </div>
-    <div class="product-card__footer">
-      <span class="product-card__tag">${product.tag}</span>
-      <button class="product-card__btn">Begär offert</button>
-    </div>
-  `;
+  const res = await fetch('/api/families');
+  const families = await res.json();
 
-  container.appendChild(card);
+  const toRender = limit ? families.slice(0, limit) : families;
+
+  toRender.forEach(family => {
+    const svg = svgs[family.takstol_typ] || svgs['fackverkstakstol'];
+
+    const card = document.createElement('div');
+    card.className = 'product-card';
+    card.innerHTML = `
+      <div class="product-card__image">${svg}</div>
+      <div class="product-card__body">
+        <p class="product-card__name">${family.takstol_typ.charAt(0).toUpperCase() + family.takstol_typ.slice(1)}</p>
+        <p class="product-card__desc">${family.beskrivning}</p>
+      </div>
+      <div class="product-card__footer">
+        <span class="product-card__tag">${family.kod}</span>
+        <button class="product-card__btn" data-kod="${family.kod}">
+          Se varianter
+        </button>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+
+  container.addEventListener('click', (e) => {
+    if (e.target.classList.contains('product-card__btn')) {
+      const kod = e.target.dataset.kod;
+      window.location.href = `takstolar-variant.html?family=${kod}`;
+    }
+  });
+}
+
+// --- LEVEL 2: Variant cards ---
+async function loadVariants() {
+  const container = document.getElementById('products-container');
+  if (!container) return;
+
+  const params = new URLSearchParams(window.location.search);
+  const familyKod = params.get('family');
+  if (!familyKod) return;
+
+  // Set page title dynamically
+  const title = document.getElementById('family-title');
+  if (title) title.textContent = familyKod;
+
+  const res = await fetch(`/api/families/${familyKod}/products`);
+  const products = await res.json();
+
+  products.forEach(product => {
+    const card = document.createElement('div');
+    card.className = 'product-card';
+    card.innerHTML = `
+      <div class="product-card__image">${svgs['fackverkstakstol']}</div>
+      <div class="product-card__body">
+        <p class="product-card__name">${product.art_nr}</p>
+        <p class="product-card__desc">
+          Spännvidd: ${product.spannvidd_mm} mm &nbsp;·&nbsp;
+          Vikt: ${product.vikt_kg} kg &nbsp;·&nbsp;
+          Takvinkel: ${product.takvinkel_grader}°
+        </p>
+      </div>
+      <div class="product-card__footer">
+        <span class="product-card__tag">${product.sakerhetsklass}</span>
+        <button class="product-card__btn" data-art="${product.art_nr}">
+          Begär offert 
+        </button>
+        ${product.pdf_url ? `<button class="product-card__btn--ghost" data-pdf="${product.pdf_url}">Visa ritning</button>` : ''}
+      </div>
+    `;
+    container.appendChild(card);
+  });
+
+
+  
+// Modal
+const modal = document.createElement('div');
+modal.id = 'pdf-modal';
+modal.style.cssText = 'display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:1000;justify-content:center;align-items:center;';
+modal.innerHTML = `
+  <div style="background:#fff;width:90%;height:90%;border-radius:8px;overflow:hidden;position:relative;">
+    <button id="close-pdf" style="position:absolute;top:12px;right:16px;font-size:1.5rem;background:none;border:none;cursor:pointer;">✕</button>
+    <iframe id="pdf-frame" src="" style="width:100%;height:100%;border:none;"></iframe>
+  </div>
+`;
+document.body.appendChild(modal);
+
+document.getElementById('close-pdf').addEventListener('click', () => {
+  modal.style.display = 'none';
+  document.getElementById('pdf-frame').src = '';
 });
+
+container.addEventListener('click', (e) => {
+  if (e.target.classList.contains('product-card__btn--ghost')) {
+    const pdfUrl = e.target.dataset.pdf;
+    document.getElementById('pdf-frame').src = pdfUrl;
+    modal.style.display = 'flex';
+  }
+});
+
+  container.addEventListener('click', (e) => {
+    if (e.target.classList.contains('product-card__btn')) {
+      const artNr = e.target.dataset.art;
+      const selected = products.find(p => p.art_nr === artNr);
+      if (!selected) return;
+      localStorage.setItem('selectedProduct', JSON.stringify(selected));
+      window.location.href = 'offert.html';
+    }
+  });
+}
+

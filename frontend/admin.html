@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — OBOS Takstolar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/tokens.css">
+  <link rel="stylesheet" href="styles/base.css">
+  <link rel="stylesheet" href="styles/admin.css">
+ 
+</head>
+<body>
+
+  <div class="admin-wrap">
+    <div class="admin-header">
+      <h1>Admin — Takstolar</h1>
+      <p>Ladda upp PDF-ritningar för att automatiskt lägga till produkter i databasen.</p>
+    </div>
+
+    <div class="login-box">
+      <input type="password" id="admin-password" placeholder="Adminlösenord" />
+      <button onclick="setPassword()">Logga in</button>
+      <span id="auth-status" style="font-size:0.85rem;color:var(--color-neutral-500)"></span>
+    </div>
+
+    <div class="drop-zone" id="drop-zone">
+      <div class="drop-zone__icon">📄</div>
+      <h2>Dra och släpp PDF-ritningar här</h2>
+      <p>Eller klicka för att välja filer &nbsp;·&nbsp; Flera filer stöds</p>
+      <input type="file" id="file-input" accept=".pdf" multiple />
+    </div>
+
+    <div class="results" id="results"></div>
+  </div>
+
+<script src="js/admin.js"></script>
+</body>
+</html>

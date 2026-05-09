@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html lang="sv">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>OBOS</title>
 
@@ -15,7 +16,8 @@
   <link rel="stylesheet" href="styles/nav.css" />
   <link rel="stylesheet" href="styles/usp.css" />
   <link rel="stylesheet" href="styles/productview.css" />
-  <link rel="stylesheet" href="styles/steps.css" />
+  <link rel="stylesheet" href="styles/product-card.css" />
+  <link rel="stylesheet" href="styles/steps.css" /> 
   <link rel="stylesheet" href="styles/aboutus.css" />
   <link rel="stylesheet" href="styles/form.css" />
 
@@ -42,6 +44,29 @@
       <div class="nav__right">
         <a href="#" class="btn btn--ghost">Teknisk rådgivning</a>          
 <a href="begar-offert.html" class="btn btn--primary">Begär offert</a>  
+
+<div class="nav__cart">
+  <button class="cart-btn" id="cartBtn">
+    
+    <!-- Shopping bag SVG -->
+    <svg viewBox="0 0 24 24" class="cart-icon">
+      <path 
+        d="M6 8h12l-1 11H7L6 8zm3-2a3 3 0 016 0"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+
+    <span class="cart-count" id="cartCount">0</span>
+  </button>
+</div>
+
+
+
+
      
 <div class="nav__toggle">
     <span></span>
@@ -137,8 +162,16 @@ Vi tillverkar takstolar för villor, radhus och flerfamiljshus — med exakta m�
         </div>
           <h2 class="h2-blue">Takstolar för alla konstruktioner.</h2>
       
-
+       
         </div>
+           <section class="container hero__products">
+                <div id="products-container" data-limit="3"></div>
+
+
+                <div class="step-button">
+    <a href="takstolar.html">Se alla takstolar →</a>
+</div>
+        </section>
     </section>
 
 
@@ -267,5 +300,37 @@ Vi tillverkar takstolar för villor, radhus och flerfamiljshus — med exakta m�
 
 
   <script src="js/main.js" defer></script>
+  <script src="js/products.js" defer></script>
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="cart-popup" id="cartPopup">
+  <div class="cart-popup__header">
+    <h5>Förfrågan</h5>
+    <button id="closeCart">✕</button>
+  </div>
+
+  <div class="cart-items" id="cartItems">
+    <p class="empty-cart">Inga produkter valda ännu.</p>
+  </div>
+
+  <div class="cart-footer">
+    <a href="begar-offert.html" class="btn btn--primary">
+      Begär offert
+    </a>
+  </div>
+</div>
+
+
+
 </body>
 </html>
