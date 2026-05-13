@@ -5,7 +5,6 @@ const fs = require('fs');
 const path = require('path');
 const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
 const pool = require('./db');
-require('dotenv').config();
 
 const upload = multer({ dest: 'tmp/' });
 

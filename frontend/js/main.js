@@ -24,12 +24,6 @@ if (toggle) {
 
 
 
-
-
-
-
-
-
 const cartBtn = document.getElementById("cartBtn");
 const cartPopup = document.getElementById("cartPopup");
 const closeCart = document.getElementById("closeCart");

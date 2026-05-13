@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node backend/server.js",
-    "dev": "nodemon backend/server.js"
+"dev": "nodemon --env-file=backend/.env backend/server.js"
   },
   "keywords": [],
   "author": "",
@@ -13,7 +13,7 @@
   "type": "commonjs",
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1045.0",
-    "dotenv": "^17.4.2",
+    "dotenv": "^16.4.5",
     "express": "^5.2.1",
     "multer": "^2.1.1",
     "pg": "^8.20.0"
