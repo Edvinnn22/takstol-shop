@@ -5,6 +5,7 @@ const pool = require('./db');
 const app = express();
 const PORT = 3000;
 
+console.log('DATABASE_URL:', process.env.DATABASE_URL);
 
 const adminRouter = require('./admin');
 app.use('/admin/api', adminRouter);
