@@ -9,32 +9,89 @@
   <link rel="stylesheet" href="styles/tokens.css">
   <link rel="stylesheet" href="styles/base.css">
   <link rel="stylesheet" href="styles/admin.css">
- 
 </head>
 <body>
 
-  <div class="admin-wrap">
-    <div class="admin-header">
-      <h1>Admin — Takstolar</h1>
-      <p>Ladda upp PDF-ritningar för att automatiskt lägga till produkter i databasen.</p>
+  <!-- LOGIN SCREEN (full page) -->
+  <div class="login-page" id="login-screen">
+    <div class="admin-login-screen">
+      <div>
+        <div class="admin-topbar__eyebrow">OBOS Takstolar</div>
+        <h1 class="admin-login-screen__title">Adminpanel</h1>
+        <p class="admin-login-screen__sub">Begränsad åtkomst — logga in för att fortsätta.</p>
+      </div>
+      <div class="login-card" id="login-section">
+        <div class="admin-card__label">Autentisering</div>
+        <div class="login-row">
+          <input class="admin-input" type="password" id="admin-password" placeholder="Lösenord" />
+          <button class="admin-btn admin-btn--primary" onclick="setPassword()">Logga in</button>
+        </div>
+        <span class="auth-feedback" id="auth-status"></span>
+      </div>
     </div>
-
-    <div class="login-box">
-      <input type="password" id="admin-password" placeholder="Adminlösenord" />
-      <button onclick="setPassword()">Logga in</button>
-      <span id="auth-status" style="font-size:0.85rem;color:var(--color-neutral-500)"></span>
-    </div>
-
-    <div class="drop-zone" id="drop-zone">
-      <div class="drop-zone__icon">📄</div>
-      <h2>Dra och släpp PDF-ritningar här</h2>
-      <p>Eller klicka för att välja filer &nbsp;·&nbsp; Flera filer stöds</p>
-      <input type="file" id="file-input" accept=".pdf" multiple />
-    </div>
-
-    <div class="results" id="results"></div>
   </div>
 
-<script src="js/admin.js"></script>
+  <!-- FULL DASHBOARD (hidden until login) -->
+  <div class="admin-shell" id="dashboard" style="display:none">
+
+    <aside class="sidebar">
+      <div class="sidebar__brand">
+        <span class="sidebar__brand-mark">OT</span>
+        <div>
+          <div class="sidebar__brand-name">Takstolar</div>
+          <div class="sidebar__brand-sub">Admin</div>
+        </div>
+      </div>
+      <nav class="sidebar__nav">
+        <a href="#" class="sidebar__link sidebar__link--active">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          PDF-uppladdning
+        </a>
+        <a href="#" class="sidebar__link sidebar__link--disabled">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          Produkter
+        </a>
+        <a href="#" class="sidebar__link sidebar__link--disabled">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          Statistik
+        </a>
+      </nav>
+      <div class="sidebar__footer">
+        <div class="sidebar__status">
+          <span class="sidebar__status-dot sidebar__status-dot--active"></span>
+          <span>Inloggad</span>
+        </div>
+      </div>
+    </aside>
+
+    <main class="admin-main">
+      <header class="admin-topbar">
+        <div class="admin-topbar__eyebrow">OBOS Takstolar · Admin</div>
+        <h1 class="admin-topbar__title">PDF-uppladdning</h1>
+      </header>
+
+      <section class="admin-card drop-zone" id="drop-zone">
+        <div class="drop-zone__inner">
+          <div class="drop-zone__icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+          </div>
+          <h2 class="drop-zone__title">Dra och släpp PDF-ritningar här</h2>
+          <p class="drop-zone__sub">Eller klicka för att välja filer &nbsp;·&nbsp; Flera filer stöds</p>
+        </div>
+        <input type="file" id="file-input" accept=".pdf" multiple />
+      </section>
+
+      <section class="results-section" id="results" style="display:none">
+        <div class="results-header">
+          <span class="admin-card__label">Uppladdade filer</span>
+          <span class="results-count" id="results-count">0 filer</span>
+        </div>
+        <div class="results-list" id="results-list"></div>
+      </section>
+    </main>
+
+  </div>
+
+  <script src="js/admin.js"></script>
 </body>
 </html>

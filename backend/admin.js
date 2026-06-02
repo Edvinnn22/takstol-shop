@@ -18,7 +18,6 @@ const s3 = new S3Client({
   },
 });
 
-// Password middleware
 function adminAuth(req, res, next) {
   const token = req.headers['x-admin-token'];
   if (token !== process.env.ADMIN_PASSWORD) {
@@ -27,17 +26,18 @@ function adminAuth(req, res, next) {
   next();
 }
 
-// Upload + extract + insert
+router.post('/verify', adminAuth, (req, res) => {
+  res.json({ ok: true });
+});
+
 router.post('/upload', adminAuth, upload.single('pdf'), async (req, res) => {
   const file = req.file;
   if (!file) return res.status(400).json({ error: 'No file' });
 
   try {
-    // Read PDF as base64
     const pdfBuffer = fs.readFileSync(file.path);
     const base64 = pdfBuffer.toString('base64');
 
-    // Send to Claude API for extraction
     const claudeRes = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
@@ -73,11 +73,10 @@ router.post('/upload', adminAuth, upload.single('pdf'), async (req, res) => {
   "lastbredd_max_mm": number,
   "snolast_kn": number,
   "vindlast_kn": number,
-  "sakerhetsklass": "SK2",
-  "klimatklass": "2",
+  "sakerhetsklass": "extract from SÄKERHETSKLASS field e.g. SK1, SK2, SK3",
+  "klimatklass": "extract from KLIMATKLASS field e.g. 1, 2, 3",
   "materialbredd_mm": number,
-  "takstol_typ": "fackverkstakstol"
-}`
+  "takstol_typ": "one of: fackverkstakstol, saxtakstol, pulpettakstol, atakstol, ramverkstakstol, mansardtakstol, lantbrukstakstol, bagtakstol, specialtakstol — determine from the drawing type"}`
             }
           ]
         }]
@@ -85,10 +84,10 @@ router.post('/upload', adminAuth, upload.single('pdf'), async (req, res) => {
     });
 
     const claudeData = await claudeRes.json();
+    console.log('Claude response:', JSON.stringify(claudeData, null, 2));
     const text = claudeData.content[0].text.trim();
     const extracted = JSON.parse(text);
 
-    // Upload PDF to R2
     const filename = `${extracted.art_nr}.pdf`;
     const key = `pdfs/${filename}`;
     await s3.send(new PutObjectCommand({
@@ -99,7 +98,6 @@ router.post('/upload', adminAuth, upload.single('pdf'), async (req, res) => {
     }));
     const pdfUrl = `${process.env.R2_PUBLIC_URL}/${key}`;
 
-    // Find or create family
     let familyRes = await pool.query(
       `SELECT id FROM product_families WHERE takstol_typ = $1`,
       [extracted.takstol_typ]
@@ -122,7 +120,6 @@ router.post('/upload', adminAuth, upload.single('pdf'), async (req, res) => {
       familyId = newFamily.rows[0].id;
     }
 
-    // Upsert product
     const productRes = await pool.query(`
       INSERT INTO products (
         family_id, art_nr, namn, spannvidd_mm, vikt_kg,
@@ -145,14 +142,12 @@ router.post('/upload', adminAuth, upload.single('pdf'), async (req, res) => {
 
     const productId = productRes.rows[0].id;
 
-    // Upsert product_files
     await pool.query(`
       INSERT INTO product_files (product_id, pdf_url)
       VALUES ($1, $2)
       ON CONFLICT (product_id) DO UPDATE SET pdf_url = EXCLUDED.pdf_url
     `, [productId, pdfUrl]);
 
-    // Cleanup tmp file
     fs.unlinkSync(file.path);
 
     res.json({ success: true, product: extracted, pdf_url: pdfUrl });
@@ -160,6 +155,25 @@ router.post('/upload', adminAuth, upload.single('pdf'), async (req, res) => {
   } catch (err) {
     console.error(err);
     if (file?.path) fs.unlinkSync(file.path);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+router.delete('/product/:art_nr', adminAuth, async (req, res) => {
+  try {
+    const { art_nr } = req.params;
+
+    const product = await pool.query(`SELECT id FROM products WHERE art_nr = $1`, [art_nr]);
+    if (!product.rows.length) return res.status(404).json({ error: 'Not found' });
+
+    const productId = product.rows[0].id;
+
+    await pool.query(`DELETE FROM product_files WHERE product_id = $1`, [productId]);
+    await pool.query(`DELETE FROM products WHERE id = $1`, [productId]);
+
+    res.json({ success: true });
+  } catch (err) {
+    console.error(err);
     res.status(500).json({ error: err.message });
   }
 });

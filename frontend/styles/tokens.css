@@ -30,13 +30,17 @@
 --color-neutral-50:  #f7f5f0;
 --color-neutral-100: #f1f1f1; /* Betong */
 --color-neutral-200: #e8e5dc;
---color-neutral-300: #d8d6ce;
+--color-neutral-300: #d8d6ce; 
 --color-neutral-400: #c4c2ba;
 --color-neutral-500: #9b9890; /* muted text */
 --color-neutral-600: #6b6960; 
 --color-neutral-700: #48473f;
 --color-neutral-800: #333333; /* Text */
 --color-neutral-900: #1a1916;
+
+
+/* Error */
+--color-error: #991b1b; /* Red for errors and warnings */
 
 /* White */
 --color-white: #FFFFFF;
