@@ -1,9 +1,31 @@
 const express = require('express');
 const path = require('path');
 const pool = require('./db');
+const { Resend } = require('resend');
+const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
+const multer = require('multer');
+const fs = require('fs');
 
 const app = express();
 const PORT = 3000;
+
+app.use(express.json());
+
+const resend = new Resend(process.env.RESEND_API_KEY);
+
+const s3 = new S3Client({
+  region: 'auto',
+  endpoint: `https://${process.env.CLOUDFLARE_ACCOUNT_ID}.r2.cloudflarestorage.com`,
+  credentials: {
+    accessKeyId: process.env.R2_ACCESS_KEY_ID,
+    secretAccessKey: process.env.R2_SECRET_ACCESS_KEY,
+  },
+});
+
+const upload = multer({
+  dest: 'tmp/',
+  limits: { fileSize: 20 * 1024 * 1024 } // 20 MB hard limit
+});
 
 console.log('DATABASE_URL:', process.env.DATABASE_URL);
 
@@ -60,10 +82,59 @@ app.get('/api/families/:kod/products', async (req, res) => {
   }
 });
 
+// Contact / quote form with file upload
+app.post('/api/contact', upload.array('filer', 10), async (req, res) => {
+  const { namn, epost, telefon, beskrivning } = req.body;
+  const files = req.files || [];
 
+  try {
+    const fileLinks = [];
+    for (const file of files) {
+      const key = `inquiries/${Date.now()}-${file.originalname}`;
+      const fileBuffer = fs.readFileSync(file.path);
 
+      await s3.send(new PutObjectCommand({
+        Bucket: process.env.R2_BUCKET_NAME,
+        Key: key,
+        Body: fileBuffer,
+        ContentType: file.mimetype,
+      }));
 
+      fs.unlinkSync(file.path);
+      fileLinks.push(`${process.env.R2_PUBLIC_URL}/${key}`);
+    }
 
+    const filesHtml = fileLinks.length
+      ? `<p><strong>Bifogade filer:</strong></p><ul>${fileLinks.map(l => `<li><a href="${l}">${l}</a></li>`).join('')}</ul>`
+      : '<p><strong>Bifogade filer:</strong> Inga</p>';
+
+    await resend.emails.send({
+      from: 'onboarding@resend.dev',
+      to: process.env.NOTIFY_EMAIL,
+      subject: `Ny förfrågan från ${namn}`,
+      html: `
+        <h2>Ny projektförfrågan</h2>
+        <p><strong>Namn:</strong> ${namn}</p>
+        <p><strong>E-post:</strong> ${epost}</p>
+        <p><strong>Telefon:</strong> ${telefon || '—'}</p>
+        <p><strong>Beskrivning:</strong><br>${beskrivning || '—'}</p>
+        ${filesHtml}
+      `
+    });
+
+    res.json({ ok: true });
+  } catch (err) {
+    for (const file of files) {
+      if (fs.existsSync(file.path)) fs.unlinkSync(file.path);
+    }
+    // Multer size error
+    if (err.code === 'LIMIT_FILE_SIZE') {
+      return res.status(413).json({ error: 'Filen är för stor (max 20 MB)' });
+    }
+    console.error(err);
+    res.status(500).json({ error: 'Kunde inte skicka e-post' });
+  }
+});
 
 app.get('/', (req, res) => {
   res.send('Server is running on localhost:3000!');
