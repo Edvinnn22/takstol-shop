@@ -24,7 +24,7 @@ const s3 = new S3Client({
 
 const upload = multer({
   dest: 'tmp/',
-  limits: { fileSize: 20 * 1024 * 1024 } // 20 MB hard limit
+  limits: { fileSize: 20 * 1024 * 1024 }
 });
 
 console.log('DATABASE_URL:', process.env.DATABASE_URL);
@@ -127,10 +127,48 @@ app.post('/api/contact', upload.array('filer', 10), async (req, res) => {
     for (const file of files) {
       if (fs.existsSync(file.path)) fs.unlinkSync(file.path);
     }
-    // Multer size error
     if (err.code === 'LIMIT_FILE_SIZE') {
       return res.status(413).json({ error: 'Filen är för stor (max 20 MB)' });
     }
+    console.error(err);
+    res.status(500).json({ error: 'Kunde inte skicka e-post' });
+  }
+});
+
+// Offert form (product quote request)
+app.post('/api/offert', async (req, res) => {
+  const { company, email, phone, project, message, product } = req.body;
+
+  const productHtml = product ? `
+    <hr>
+    <h3>Produkt</h3>
+    <p><strong>Art.nr:</strong> ${product.art_nr}</p>
+    <p><strong>Spännvidd:</strong> ${product.spannvidd_mm} mm</p>
+    <p><strong>Takvinkel:</strong> ${product.takvinkel_grader}°</p>
+    <p><strong>Vikt:</strong> ${product.vikt_kg} kg</p>
+    ${product.sakerhetsklass ? `<p><strong>Säkerhetsklass:</strong> ${product.sakerhetsklass}</p>` : ''}
+    ${product.snolast_kn_m2 ? `<p><strong>Snölast:</strong> ${product.snolast_kn_m2} kN/m²</p>` : ''}
+  ` : '';
+
+  try {
+    await resend.emails.send({
+      from: 'onboarding@resend.dev',
+      to: process.env.NOTIFY_EMAIL,
+      replyTo: email,
+      subject: `Offertförfrågan – ${product?.art_nr || 'Okänd produkt'}`,
+      html: `
+        <h2>Ny offertförfrågan</h2>
+        <p><strong>Företag/Namn:</strong> ${company}</p>
+        <p><strong>E-post:</strong> ${email}</p>
+        <p><strong>Telefon:</strong> ${phone || '—'}</p>
+        <p><strong>Projekt:</strong> ${project || '—'}</p>
+        <p><strong>Meddelande:</strong><br>${message || '—'}</p>
+        ${productHtml}
+      `
+    });
+
+    res.json({ ok: true });
+  } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Kunde inte skicka e-post' });
   }

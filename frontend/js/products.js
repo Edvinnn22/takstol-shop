@@ -165,10 +165,13 @@ async function loadVariants() {
           <span class="product-card__tag">${product.sakerhetsklass}</span>
           ${product.pdf_url ? `<button class="product-card__btn--ghost" data-pdf="${product.pdf_url}">Ritning</button>` : ''}
         </div>
-        <button class="product-card__btn product-card__btn--cart" data-art="${product.art_nr}">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1 11H7L6 8zm3-2a3 3 0 016 0"/></svg>
-          Lägg i korg
-        </button>
+        <div class="product-card__footer-right">
+          <button class="product-card__btn product-card__btn--offert" data-art="${product.art_nr}">Begär offert</button>
+          <button class="product-card__btn product-card__btn--cart" data-art="${product.art_nr}">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1 11H7L6 8zm3-2a3 3 0 016 0"/></svg>
+            Lägg i varukorg
+          </button>
+        </div>
       </div>
     `;
     container.appendChild(card);
@@ -200,6 +203,17 @@ async function loadVariants() {
       return;
     }
 
+    // Offert button
+    if (e.target.closest('.product-card__btn--offert')) {
+      const btn = e.target.closest('.product-card__btn--offert');
+      const artNr = btn.dataset.art;
+      const selected = products.find(p => p.art_nr === artNr);
+      if (!selected) return;
+      localStorage.setItem('selectedProduct', JSON.stringify(selected));
+      window.location.href = 'offert.html';
+      return;
+    }
+
     // Cart button
     if (e.target.closest('.product-card__btn--cart')) {
       const btn = e.target.closest('.product-card__btn--cart');
@@ -208,11 +222,10 @@ async function loadVariants() {
       if (!product) return;
       addToCart(product);
 
-      // Brief feedback
       btn.textContent = 'Tillagd ✓';
       btn.style.background = 'var(--color-green-600, #008761)';
       setTimeout(() => {
-        btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1 11H7L6 8zm3-2a3 3 0 016 0"/></svg> Lägg i korg`;
+        btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1 11H7L6 8zm3-2a3 3 0 016 0"/></svg> Lägg i varukorg`;
         btn.style.background = '';
       }, 1200);
     }

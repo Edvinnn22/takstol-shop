@@ -7,7 +7,6 @@
 
   <link rel="stylesheet" href="styles/tokens.css">
   <link rel="stylesheet" href="styles/base.css">
-  <!-- <link rel="stylesheet" href="styles/form.css"> -->
   <link rel="stylesheet" href="styles/offert.css">
 </head>
 <body>
@@ -15,27 +14,32 @@
 <section class="quote-page">
   <div class="container quote-page__wrapper">
 
-    <div id="productPreview">
-      <!-- Product dynamically inserted -->
-    </div>
+    <div id="productPreview"></div>
 
-    <form class="quote-form">
-      <h2>Begär offert</h2>
+    <form class="quote-form" id="quoteForm">
+      <div class="quote-form__header">
+        <h2>Begär offert</h2>
+        <p>Fyll i dina uppgifter så återkommer vi med ett prisförslag.</p>
+      </div>
 
-      <input type="text" placeholder="Företagsnamn / Namn">
-      <input type="email" placeholder="Email">
-      <input type="tel" placeholder="Telefonnummer">
+      <div class="quote-form__grid">
+        <input type="text" name="company" placeholder="Företagsnamn / Namn" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="tel" name="phone" placeholder="Telefonnummer">
+        <input type="text" name="project" placeholder="Projektnamn (valfritt)">
+      </div>
 
-      <textarea placeholder="Projektdetaljer"></textarea>
+      <textarea name="message" placeholder="Projektdetaljer, antal takstolar, leveransönskemål..."></textarea>
 
-      <button class="btn btn--primary">
-        Skicka förfrågan
-      </button>
+      <div class="quote-form__actions">
+        <button type="submit" class="btn btn--primary">Skicka förfrågan</button>
+      </div>
     </form>
 
   </div>
 </section>
 
+<script src="js/svgs.js"></script>
 <script src="js/offert.js"></script>
 </body>
 </html>

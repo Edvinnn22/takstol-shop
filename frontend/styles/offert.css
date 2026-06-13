@@ -12,8 +12,6 @@
   gap: var(--space-8);
 }
 
-
-
 .quote-preview {
   background: white;
   border-radius: var(--radius-xl);
@@ -23,44 +21,65 @@
 
 .quote-product-card {
   display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
+  gap: var(--space-6);
+  align-items: flex-start;
 }
 
 .quote-product-svg {
   background: var(--color-neutral-50);
   padding: var(--space-6);
   border-radius: var(--radius-lg);
+  flex-shrink: 0;
+  width: 200px;
 }
 
 .quote-product-svg svg {
   width: 100%;
-  height: 140px;
+  height: 120px;
   color: var(--color-blue-800);
 }
 
-.quote-product-card h2 {
-  color: var(--color-blue-900);
+.quote-product-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
 }
 
-.quote-product-card p {
+.quote-product-info h2 {
+  color: var(--color-blue-900);
+  margin: 0;
+}
+
+.quote-product-desc {
   color: var(--color-neutral-600);
   line-height: 1.6;
+  margin: 0;
 }
 
+.quote-specs {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
 
+.quote-specs span {
+  background: var(--color-neutral-100);
+  border-radius: var(--radius-sm);
+  padding: 4px 10px;
+  font-size: var(--text-sm);
+  color: var(--color-blue-800);
+  font-weight: 500;
+}
 
 .quote-form {
   background: white;
   padding: var(--space-8);
   border-radius: var(--radius-xl);
   border: 1px solid var(--color-neutral-200);
-
   display: flex;
   flex-direction: column;
   gap: var(--space-6);
 }
-
 
 .quote-form__header h2 {
   margin-bottom: 8px;
@@ -71,14 +90,11 @@
   color: var(--color-neutral-600);
 }
 
-
 .quote-form__grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--space-4);
 }
-
-
 
 .quote-form input,
 .quote-form textarea {
@@ -88,6 +104,17 @@
   border-radius: var(--radius-md);
   font-size: var(--text-sm);
   font-family: inherit;
+  color: var(--color-neutral-900);
+  background: var(--color-neutral-50);
+  box-sizing: border-box;
+  transition: border-color 0.15s;
+}
+
+.quote-form input:focus,
+.quote-form textarea:focus {
+  outline: none;
+  border-color: var(--color-blue-600);
+  background: white;
 }
 
 .quote-form textarea {
@@ -95,15 +122,20 @@
   resize: vertical;
 }
 
-
 .quote-form__actions {
   display: flex;
   justify-content: flex-end;
 }
 
-
-
 @media (max-width: 768px) {
+  .quote-product-card {
+    flex-direction: column;
+  }
+
+  .quote-product-svg {
+    width: 100%;
+  }
+
   .quote-form__grid {
     grid-template-columns: 1fr;
   }
