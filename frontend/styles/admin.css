@@ -345,3 +345,14 @@ body {
   font-family: var(--font-heading);
   margin-bottom: var(--space-6);
 }
+
+
+.confirm-card__warning {
+  background: #fef3c7;
+  border: 1px solid #f59e0b;
+  border-radius: 6px;
+  padding: 0.6rem 0.9rem;
+  font-size: 0.82rem;
+  color: #92400e;
+  margin-bottom: 0.75rem;
+}

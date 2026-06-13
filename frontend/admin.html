@@ -12,7 +12,7 @@
 </head>
 <body>
 
-  <!-- LOGIN SCREEN (full page) -->
+  <!-- LOGIN SCREEN -->
   <div class="login-page" id="login-screen">
     <div class="admin-login-screen">
       <div>
@@ -31,7 +31,7 @@
     </div>
   </div>
 
-  <!-- FULL DASHBOARD (hidden until login) -->
+  <!-- DASHBOARD -->
   <div class="admin-shell" id="dashboard" style="display:none">
 
     <aside class="sidebar">
@@ -43,11 +43,11 @@
         </div>
       </div>
       <nav class="sidebar__nav">
-        <a href="#" class="sidebar__link sidebar__link--active">
+        <a href="#" class="sidebar__link" id="nav-upload" onclick="showSection('upload')">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
           PDF-uppladdning
         </a>
-        <a href="#" class="sidebar__link sidebar__link--disabled">
+        <a href="#" class="sidebar__link" id="nav-products" onclick="showSection('products')">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
           Produkter
         </a>
@@ -65,31 +65,51 @@
     </aside>
 
     <main class="admin-main">
-      <header class="admin-topbar">
-        <div class="admin-topbar__eyebrow">OBOS Takstolar · Admin</div>
-        <h1 class="admin-topbar__title">PDF-uppladdning</h1>
-      </header>
 
-      <section class="admin-card drop-zone" id="drop-zone">
-        <div class="drop-zone__inner">
-          <div class="drop-zone__icon">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+      <!-- SECTION: PDF Upload -->
+      <div id="section-upload">
+        <header class="admin-topbar">
+          <div class="admin-topbar__eyebrow">OBOS Takstolar · Admin</div>
+          <h1 class="admin-topbar__title">PDF-uppladdning</h1>
+        </header>
+
+        <section class="admin-card drop-zone" id="drop-zone">
+          <div class="drop-zone__inner">
+            <div class="drop-zone__icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+            </div>
+            <h2 class="drop-zone__title">Dra och släpp PDF-ritningar här</h2>
+            <p class="drop-zone__sub">Eller klicka för att välja filer &nbsp;·&nbsp; Flera filer stöds</p>
           </div>
-          <h2 class="drop-zone__title">Dra och släpp PDF-ritningar här</h2>
-          <p class="drop-zone__sub">Eller klicka för att välja filer &nbsp;·&nbsp; Flera filer stöds</p>
-        </div>
-        <input type="file" id="file-input" accept=".pdf" multiple />
-      </section>
+          <input type="file" id="file-input" accept=".pdf" multiple />
+        </section>
 
-      <section class="results-section" id="results" style="display:none">
-        <div class="results-header">
-          <span class="admin-card__label">Uppladdade filer</span>
-          <span class="results-count" id="results-count">0 filer</span>
-        </div>
-        <div class="results-list" id="results-list"></div>
-      </section>
+        <section class="results-section" id="results" style="display:none">
+          <div class="results-header">
+            <span class="admin-card__label">Uppladdade filer</span>
+            <span class="results-count" id="results-count">0 filer</span>
+          </div>
+          <div class="results-list" id="results-list"></div>
+        </section>
+      </div>
+
+      <!-- SECTION: Products / Price Management -->
+      <div id="section-products" style="display:none">
+        <header class="admin-topbar">
+          <div class="admin-topbar__eyebrow">OBOS Takstolar · Admin</div>
+          <h1 class="admin-topbar__title">Produkter</h1>
+        </header>
+
+        <section class="admin-card">
+          <div class="results-header">
+            <span class="admin-card__label">Alla produkter</span>
+            <span class="admin-card__label-sub">Ange pris per styck och spara</span>
+          </div>
+          <div id="product-list"></div>
+        </section>
+      </div>
+
     </main>
-
   </div>
 
   <script src="js/admin.js"></script>

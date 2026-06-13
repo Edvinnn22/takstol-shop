@@ -81,7 +81,7 @@ router.post('/extract', adminAuth, upload.single('pdf'), async (req, res) => {
     });
 
     const claudeData = await claudeRes.json();
-    const text = claudeData.content[0].text.trim();
+    const text = claudeData.content[0].text.trim().replace(/^```json\s*/i, '').replace(/```$/i, '').trim();
     const extracted = JSON.parse(text);
 
     // Store PDF temporarily on R2 with a staging key
