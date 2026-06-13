@@ -1,152 +1,253 @@
-let password = sessionStorage.getItem('admin-token') || '';
-let uploadCount = 0;
+let adminPassword = sessionStorage.getItem('adminToken') || '';
 
-// ── INIT ON LOAD ──────────────────────────────────────────
+function setPassword() {
+  const input = document.getElementById('admin-password');
+  const status = document.getElementById('auth-status');
+  const pw = input.value.trim();
+  if (!pw) return;
 
-window.addEventListener('DOMContentLoaded', () => {
-  if (password) showDashboard();
-});
-
-// ── AUTH ──────────────────────────────────────────────────
-
-async function setPassword() {
-  password = document.getElementById('admin-password').value;
-  const statusEl = document.getElementById('auth-status');
-
-  const res = await fetch('/admin/api/verify', {
-    method: 'POST',
-    headers: { 'x-admin-token': password }
-  });
-
-  if (res.ok) {
-    sessionStorage.setItem('admin-token', password);
-    showDashboard();
-  } else {
-    password = '';
-    statusEl.textContent = 'Fel lösenord';
-    statusEl.style.color = 'var(--color-error)';
-    document.getElementById('admin-password').value = '';
-  }
+  fetch('/admin/api/verify', {
+    headers: { 'x-admin-token': pw }
+  })
+    .then(r => r.json())
+    .then(data => {
+      if (data.ok) {
+        adminPassword = pw;
+        sessionStorage.setItem('adminToken', pw);
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('dashboard').style.display = 'flex';
+        loadProducts();
+      } else {
+        status.textContent = 'Fel lösenord.';
+        status.style.color = '#dc2626';
+      }
+    })
+    .catch(() => {
+      status.textContent = 'Kunde inte ansluta.';
+      status.style.color = '#dc2626';
+    });
 }
 
-function showDashboard() {
-  document.getElementById('login-screen').style.display = 'none';
-  document.getElementById('dashboard').style.display = 'flex';
+// Auto-login if token exists
+if (adminPassword) {
+  fetch('/admin/api/verify', { headers: { 'x-admin-token': adminPassword } })
+    .then(r => r.json())
+    .then(data => {
+      if (data.ok) {
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('dashboard').style.display = 'flex';
+        loadProducts();
+      } else {
+        sessionStorage.removeItem('adminToken');
+        adminPassword = '';
+      }
+    });
 }
 
-document.getElementById('admin-password').addEventListener('keydown', (e) => {
-  if (e.key === 'Enter') setPassword();
-});
-
-// ── DROP ZONE ─────────────────────────────────────────────
-
+// --- DROP ZONE ---
 const dropZone = document.getElementById('drop-zone');
 const fileInput = document.getElementById('file-input');
 
-dropZone.addEventListener('click', () => fileInput.click());
-
-dropZone.addEventListener('dragover', (e) => {
+dropZone?.addEventListener('click', () => fileInput?.click());
+dropZone?.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('drop-zone--over'); });
+dropZone?.addEventListener('dragleave', () => dropZone.classList.remove('drop-zone--over'));
+dropZone?.addEventListener('drop', (e) => {
   e.preventDefault();
-  dropZone.classList.add('dragover');
+  dropZone.classList.remove('drop-zone--over');
+  handleFiles([...e.dataTransfer.files]);
 });
+fileInput?.addEventListener('change', () => handleFiles([...fileInput.files]));
 
-dropZone.addEventListener('dragleave', () => {
-  dropZone.classList.remove('dragover');
-});
+async function handleFiles(files) {
+  const pdfs = files.filter(f => f.type === 'application/pdf');
+  if (!pdfs.length) return;
 
-dropZone.addEventListener('drop', (e) => {
-  e.preventDefault();
-  dropZone.classList.remove('dragover');
-  handleFiles(Array.from(e.dataTransfer.files));
-});
-
-fileInput.addEventListener('change', () => {
-  handleFiles(Array.from(fileInput.files));
-  fileInput.value = '';
-});
-
-function handleFiles(files) {
-  files.filter(f => f.name.endsWith('.pdf')).forEach(uploadFile);
-}
-
-// ── UPLOAD ────────────────────────────────────────────────
-
-function updateCount(delta) {
-  uploadCount += delta;
-  const el = document.getElementById('results-count');
-  if (el) el.textContent = `${uploadCount} fil${uploadCount !== 1 ? 'er' : ''}`;
-}
-
-async function uploadFile(file) {
+  const resultsSection = document.getElementById('results');
   const resultsList = document.getElementById('results-list');
-  document.getElementById('results').style.display = 'flex';
+  const resultsCount = document.getElementById('results-count');
 
-  const card = document.createElement('div');
-  card.className = 'result-card';
-  card.innerHTML = `
-    <div class="result-card__left">
-      <div class="result-card__file-icon">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-          <polyline points="14 2 14 8 20 8"/>
-        </svg>
-      </div>
-      <div class="result-card__info">
-        <div class="result-card__name">${file.name}</div>
-        <div class="result-card__meta">Bearbetar…</div>
-      </div>
-    </div>
-    <div class="result-card__right">
-      <span class="result-card__status result-card__status--loading">Laddar upp</span>
-    </div>
-  `;
-  resultsList.prepend(card);
-  updateCount(1);
+  resultsSection.style.display = 'block';
+  resultsCount.textContent = `${pdfs.length} fil${pdfs.length > 1 ? 'er' : ''}`;
 
-  try {
-    const formData = new FormData();
-    formData.append('pdf', file);
+  for (const file of pdfs) {
+    const row = document.createElement('div');
+    row.className = 'result-row result-row--loading';
+    row.innerHTML = `
+      <div class="result-row__name">${file.name}</div>
+      <div class="result-row__status">Extraherar…</div>
+    `;
+    resultsList.appendChild(row);
 
-    const res = await fetch('/admin/api/upload', {
-      method: 'POST',
-      headers: { 'x-admin-token': password },
-      body: formData,
-    });
+    try {
+      const formData = new FormData();
+      formData.append('pdf', file);
 
-    const data = await res.json();
+      const res = await fetch('/admin/api/extract', {
+        method: 'POST',
+        headers: { 'x-admin-token': adminPassword },
+        body: formData,
+      });
 
-    if (data.success) {
-      card.querySelector('.result-card__meta').textContent =
-        `${data.product.art_nr} · ${data.product.spannvidd_mm} mm · ${data.product.vikt_kg} kg`;
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Fel vid extrahering');
 
-      const statusEl = card.querySelector('.result-card__status');
-      statusEl.className = 'result-card__status result-card__status--success';
-      statusEl.textContent = 'Tillagd';
+      // Show confirmation card
+      row.className = 'result-row result-row--confirm';
+      row.innerHTML = buildConfirmCard(data.extracted, data.stagingKey, file.name);
 
-      const deleteBtn = document.createElement('button');
-      deleteBtn.className = 'admin-btn admin-btn--danger';
-      deleteBtn.textContent = 'Ta bort';
-      deleteBtn.onclick = async () => {
-        if (!confirm(`Ta bort ${data.product.art_nr}?`)) return;
-        const delRes = await fetch(`/admin/api/product/${data.product.art_nr}`, {
-          method: 'DELETE',
-          headers: { 'x-admin-token': password }
-        });
-        if ((await delRes.json()).success) {
-          card.remove();
-          updateCount(-1);
-        }
-      };
-      card.querySelector('.result-card__right').appendChild(deleteBtn);
-
-    } else {
-      throw new Error(data.error);
+    } catch (err) {
+      row.className = 'result-row result-row--error';
+      row.innerHTML = `
+        <div class="result-row__name">${file.name}</div>
+        <div class="result-row__status result-row__status--error">⚠ ${err.message}</div>
+      `;
     }
-
-  } catch (err) {
-    card.querySelector('.result-card__meta').textContent = err.message;
-    const statusEl = card.querySelector('.result-card__status');
-    statusEl.className = 'result-card__status result-card__status--error';
-    statusEl.textContent = 'Fel';
   }
 }
+
+function buildConfirmCard(extracted, stagingKey, fileName) {
+  return `
+    <div class="confirm-card">
+      <div class="confirm-card__header">
+        <span class="confirm-card__filename">${fileName}</span>
+        <span class="confirm-card__art">${extracted.art_nr}</span>
+      </div>
+      <div class="confirm-card__specs">
+        <span>Spännvidd: <strong>${extracted.spannvidd_mm} mm</strong></span>
+        <span>Vikt: <strong>${extracted.vikt_kg} kg</strong></span>
+        <span>Takvinkel: <strong>${extracted.takvinkel_grader}°</strong></span>
+        <span>Säkerhetsklass: <strong>${extracted.sakerhetsklass}</strong></span>
+        <span>Klimatklass: <strong>${extracted.klimatklass}</strong></span>
+        <span>Typ: <strong>${extracted.takstol_typ}</strong></span>
+      </div>
+      <div class="confirm-card__price-row">
+        <label class="confirm-card__label" for="price-${extracted.art_nr}">Pris (kr/st)</label>
+        <input
+          class="admin-input confirm-card__price-input"
+          id="price-${extracted.art_nr}"
+          type="number"
+          placeholder="t.ex. 4 500"
+          min="0"
+          step="100"
+        />
+      </div>
+      <div class="confirm-card__actions">
+        <button
+          class="admin-btn admin-btn--primary confirm-save"
+          data-extracted='${JSON.stringify(extracted)}'
+          data-staging="${stagingKey}"
+        >
+          Spara produkt
+        </button>
+        <button class="admin-btn confirm-cancel">Avbryt</button>
+      </div>
+      <div class="confirm-card__feedback"></div>
+    </div>
+  `;
+}
+
+// Event delegation for confirm/cancel
+document.getElementById('results-list')?.addEventListener('click', async (e) => {
+  if (e.target.classList.contains('confirm-save')) {
+    const btn = e.target;
+    const extracted = JSON.parse(btn.dataset.extracted);
+    const stagingKey = btn.dataset.staging;
+    const card = btn.closest('.confirm-card');
+    const priceInput = card.querySelector('.confirm-card__price-input');
+    const feedback = card.querySelector('.confirm-card__feedback');
+    const pris_kr = priceInput.value ? parseFloat(priceInput.value) : null;
+
+    btn.disabled = true;
+    btn.textContent = 'Sparar…';
+
+    try {
+      const res = await fetch('/admin/api/confirm', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-token': adminPassword,
+        },
+        body: JSON.stringify({ extracted, stagingKey, pris_kr }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+
+      btn.closest('.result-row').className = 'result-row result-row--success';
+      btn.closest('.result-row').innerHTML = `
+        <div class="result-row__name">${extracted.art_nr}</div>
+        <div class="result-row__status result-row__status--success">✓ Sparad${pris_kr ? ` · ${pris_kr.toLocaleString('sv-SE')} kr/st` : ''}</div>
+      `;
+      loadProducts();
+    } catch (err) {
+      feedback.textContent = `⚠ ${err.message}`;
+      feedback.style.color = '#dc2626';
+      btn.disabled = false;
+      btn.textContent = 'Spara produkt';
+    }
+  }
+
+  if (e.target.classList.contains('confirm-cancel')) {
+    e.target.closest('.result-row').remove();
+  }
+});
+
+// --- PRODUCTS LIST ---
+async function loadProducts() {
+  const res = await fetch('/api/products', { headers: { 'x-admin-token': adminPassword } });
+  const products = await res.json();
+
+  const list = document.getElementById('product-list');
+  if (!list) return;
+
+  list.innerHTML = products.map(p => `
+    <div class="product-row" data-art="${p.art_nr}">
+      <span class="product-row__art">${p.art_nr}</span>
+      <span class="product-row__name">${p.namn}</span>
+      <div class="product-row__price">
+        <input
+          class="admin-input admin-input--sm"
+          type="number"
+          value="${p.pris_kr || ''}"
+          placeholder="—"
+          data-art="${p.art_nr}"
+        />
+        <button class="admin-btn admin-btn--sm price-save" data-art="${p.art_nr}">Spara</button>
+      </div>
+      <button class="admin-btn admin-btn--danger admin-btn--sm product-delete" data-art="${p.art_nr}">Ta bort</button>
+    </div>
+  `).join('');
+
+  list.querySelectorAll('.price-save').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const art = btn.dataset.art;
+      const input = list.querySelector(`input[data-art="${art}"]`);
+      const pris_kr = input.value ? parseFloat(input.value) : null;
+
+      await fetch(`/admin/api/product/${art}/price`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json', 'x-admin-token': adminPassword },
+        body: JSON.stringify({ pris_kr }),
+      });
+
+      btn.textContent = '✓';
+      setTimeout(() => btn.textContent = 'Spara', 1500);
+    });
+  });
+
+  list.querySelectorAll('.product-delete').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      if (!confirm(`Ta bort ${btn.dataset.art}?`)) return;
+      await fetch(`/admin/api/product/${btn.dataset.art}`, {
+        method: 'DELETE',
+        headers: { 'x-admin-token': adminPassword },
+      });
+      loadProducts();
+    });
+  });
+}
+
+// Password input enter key
+document.getElementById('admin-password')?.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') setPassword();
+});

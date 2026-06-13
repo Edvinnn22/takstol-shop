@@ -29,7 +29,8 @@ router.post('/verify', adminAuth, (req, res) => {
   res.json({ ok: true });
 });
 
-router.post('/upload', adminAuth, upload.single('pdf'), async (req, res) => {
+// Step 1: extract only — no DB write yet
+router.post('/extract', adminAuth, upload.single('pdf'), async (req, res) => {
   const file = req.file;
   if (!file) return res.status(400).json({ error: 'No file' });
 
@@ -52,11 +53,7 @@ router.post('/upload', adminAuth, upload.single('pdf'), async (req, res) => {
           content: [
             {
               type: 'document',
-              source: {
-                type: 'base64',
-                media_type: 'application/pdf',
-                data: base64,
-              }
+              source: { type: 'base64', media_type: 'application/pdf', data: base64 }
             },
             {
               type: 'text',
@@ -75,7 +72,8 @@ router.post('/upload', adminAuth, upload.single('pdf'), async (req, res) => {
   "sakerhetsklass": "extract from SÄKERHETSKLASS field e.g. SK1, SK2, SK3",
   "klimatklass": "extract from KLIMATKLASS field e.g. 1, 2, 3",
   "materialbredd_mm": number,
-  "takstol_typ": "one of: fackverkstakstol, saxtakstol, pulpettakstol, atakstol, ramverkstakstol, mansardtakstol, lantbrukstakstol, bagtakstol, specialtakstol — determine from the drawing type"}`
+  "takstol_typ": "one of: fackverkstakstol, saxtakstol, pulpettakstol, atakstol, ramverkstakstol, mansardtakstol, lantbrukstakstol, bagtakstol, specialtakstol — determine from the drawing type"
+}`
             }
           ]
         }]
@@ -83,20 +81,52 @@ router.post('/upload', adminAuth, upload.single('pdf'), async (req, res) => {
     });
 
     const claudeData = await claudeRes.json();
-    console.log('Claude response:', JSON.stringify(claudeData, null, 2));
     const text = claudeData.content[0].text.trim();
     const extracted = JSON.parse(text);
 
-    const filename = `${extracted.art_nr}.pdf`;
-    const key = `pdfs/${filename}`;
+    // Store PDF temporarily on R2 with a staging key
+    const stagingKey = `staging/${Date.now()}-${extracted.art_nr}.pdf`;
     await s3.send(new PutObjectCommand({
       Bucket: process.env.R2_BUCKET_NAME,
-      Key: key,
+      Key: stagingKey,
       Body: pdfBuffer,
       ContentType: 'application/pdf',
     }));
-    const pdfUrl = `${process.env.R2_PUBLIC_URL}/${key}`;
 
+    fs.unlinkSync(file.path);
+
+    res.json({ extracted, stagingKey });
+
+  } catch (err) {
+    console.error(err);
+    if (file?.path && fs.existsSync(file.path)) fs.unlinkSync(file.path);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Step 2: confirm + save to DB (with price)
+router.post('/confirm', adminAuth, async (req, res) => {
+  const { extracted, stagingKey, pris_kr } = req.body;
+
+  try {
+    // Move from staging to final key
+    const { GetObjectCommand, CopyObjectCommand, DeleteObjectCommand } = require('@aws-sdk/client-s3');
+    const finalKey = `pdfs/${extracted.art_nr}.pdf`;
+
+    await s3.send(new CopyObjectCommand({
+      Bucket: process.env.R2_BUCKET_NAME,
+      CopySource: `${process.env.R2_BUCKET_NAME}/${stagingKey}`,
+      Key: finalKey,
+    }));
+
+    await s3.send(new DeleteObjectCommand({
+      Bucket: process.env.R2_BUCKET_NAME,
+      Key: stagingKey,
+    }));
+
+    const pdfUrl = `${process.env.R2_PUBLIC_URL}/${finalKey}`;
+
+    // Find or create family
     let familyRes = await pool.query(
       `SELECT id FROM product_families WHERE takstol_typ = $1`,
       [extracted.takstol_typ]
@@ -123,20 +153,21 @@ router.post('/upload', adminAuth, upload.single('pdf'), async (req, res) => {
       INSERT INTO products (
         family_id, art_nr, namn, spannvidd_mm, vikt_kg,
         takvinkel_grader, husvagg_mm, sidobislag_mm, lastbredd_max_mm,
-        snolast_kn, vindlast_kn, sakerhetsklass, klimatklass, materialbredd_mm
-      ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)
+        snolast_kn, vindlast_kn, sakerhetsklass, klimatklass, materialbredd_mm, pris_kr
+      ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)
       ON CONFLICT (art_nr) DO UPDATE SET
         namn = EXCLUDED.namn,
         spannvidd_mm = EXCLUDED.spannvidd_mm,
         vikt_kg = EXCLUDED.vikt_kg,
-        takvinkel_grader = EXCLUDED.takvinkel_grader
+        takvinkel_grader = EXCLUDED.takvinkel_grader,
+        pris_kr = EXCLUDED.pris_kr
       RETURNING id
     `, [
       familyId, extracted.art_nr, extracted.namn, extracted.spannvidd_mm,
       extracted.vikt_kg, extracted.takvinkel_grader, extracted.husvagg_mm,
       extracted.sidobislag_mm, extracted.lastbredd_max_mm, extracted.snolast_kn,
       extracted.vindlast_kn, extracted.sakerhetsklass, extracted.klimatklass,
-      extracted.materialbredd_mm
+      extracted.materialbredd_mm, pris_kr || null
     ]);
 
     const productId = productRes.rows[0].id;
@@ -147,13 +178,25 @@ router.post('/upload', adminAuth, upload.single('pdf'), async (req, res) => {
       ON CONFLICT (product_id) DO UPDATE SET pdf_url = EXCLUDED.pdf_url
     `, [productId, pdfUrl]);
 
-    fs.unlinkSync(file.path);
-
     res.json({ success: true, product: extracted, pdf_url: pdfUrl });
 
   } catch (err) {
     console.error(err);
-    if (file?.path) fs.unlinkSync(file.path);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// PATCH price on existing product
+router.patch('/product/:art_nr/price', adminAuth, async (req, res) => {
+  try {
+    const { pris_kr } = req.body;
+    await pool.query(
+      `UPDATE products SET pris_kr = $1 WHERE art_nr = $2`,
+      [pris_kr, req.params.art_nr]
+    );
+    res.json({ success: true });
+  } catch (err) {
+    console.error(err);
     res.status(500).json({ error: err.message });
   }
 });
@@ -161,12 +204,10 @@ router.post('/upload', adminAuth, upload.single('pdf'), async (req, res) => {
 router.delete('/product/:art_nr', adminAuth, async (req, res) => {
   try {
     const { art_nr } = req.params;
-
     const product = await pool.query(`SELECT id FROM products WHERE art_nr = $1`, [art_nr]);
     if (!product.rows.length) return res.status(404).json({ error: 'Not found' });
 
     const productId = product.rows[0].id;
-
     await pool.query(`DELETE FROM product_files WHERE product_id = $1`, [productId]);
     await pool.query(`DELETE FROM products WHERE id = $1`, [productId]);
 

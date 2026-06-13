@@ -11,4 +11,5 @@
   margin: 0 auto;
   padding-left: var(--container-padding);
   padding-right: var(--container-padding);
+  padding-bottom: var(--space-10);
 }
