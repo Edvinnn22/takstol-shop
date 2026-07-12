@@ -1,13 +1,16 @@
 // svgs is loaded via js/svgs.js — included before this script in HTML
 
 const page = window.location.pathname;
+const productsContainer = document.getElementById('products-container');
 
-if (page.includes('takstolar-variant.html')) {
-  loadVariants();
-} else if (page.includes('index.html') || page === '/' || page === '') {
-  loadFamilies(3);
-} else {
-  loadFamilies();
+if (productsContainer) {
+  if (page.includes('takstolar-variant.html')) {
+    loadVariants();
+  } else if (page.includes('index.html') || page === '/' || page === '') {
+    loadFamilies(3);
+  } else {
+    loadFamilies();
+  }
 }
 
 // --- CART ---
@@ -20,13 +23,13 @@ function saveCart(cart) {
   updateCartUI();
 }
 
-function addToCart(product) {
+function addToCart(product, familyTyp) {
   const cart = getCart();
   const existing = cart.find(i => i.art_nr === product.art_nr);
   if (existing) {
     existing.qty += 1;
   } else {
-    cart.push({ ...product, qty: 1 });
+    cart.push({ ...product, qty: 1, takstol_typ: familyTyp || product.takstol_typ });
   }
   saveCart(cart);
 }
@@ -35,14 +38,30 @@ function removeFromCart(art_nr) {
   saveCart(getCart().filter(i => i.art_nr !== art_nr));
 }
 
+function updateQty(art_nr, qty) {
+  const cart = getCart();
+  const item = cart.find(i => i.art_nr === art_nr);
+  if (item) {
+    item.qty = Math.max(1, qty);
+    saveCart(cart);
+  }
+}
+
+function cartTotal() {
+  return getCart().reduce((sum, i) => sum + ((i.pris_kr || 0) * i.qty), 0);
+}
+
 function updateCartUI() {
   const cart = getCart();
-  const total = cart.reduce((sum, i) => sum + i.qty, 0);
+  const totalItems = cart.reduce((sum, i) => sum + i.qty, 0);
 
   const countEl = document.getElementById('cartCount');
-  if (countEl) countEl.textContent = total;
+  if (countEl) countEl.textContent = totalItems;
 
   const itemsEl = document.getElementById('cartItems');
+  const totalEl = document.getElementById('cartPopupTotal');
+
+  if (totalEl) totalEl.textContent = formatPrice(cartTotal());
   if (!itemsEl) return;
 
   if (cart.length === 0) {
@@ -52,13 +71,18 @@ function updateCartUI() {
 
   itemsEl.innerHTML = cart.map(item => `
     <div class="cart-item">
+      <div class="cart-item__thumb">${(window.svgs && (svgs[item.takstol_typ] || svgs['fackverkstakstol'])) || ''}</div>
       <div class="cart-item__info">
         <span class="cart-item__name">${item.art_nr}</span>
         <span class="cart-item__meta">${item.spannvidd_mm} mm · ${item.takvinkel_grader}°</span>
+        <div class="cart-item__qty-controls">
+          <button class="qty-btn" data-art="${item.art_nr}" data-dir="-1">−</button>
+          <span>${item.qty} st</span>
+          <button class="qty-btn" data-art="${item.art_nr}" data-dir="1">+</button>
+        </div>
       </div>
       <div class="cart-item__right">
         ${item.pris_kr ? `<span class="cart-item__price">${formatPrice(item.pris_kr * item.qty)}</span>` : ''}
-        <span class="cart-item__qty">×${item.qty}</span>
         <button class="cart-item__remove" data-art="${item.art_nr}">✕</button>
       </div>
     </div>
@@ -66,6 +90,16 @@ function updateCartUI() {
 
   itemsEl.querySelectorAll('.cart-item__remove').forEach(btn => {
     btn.addEventListener('click', () => removeFromCart(btn.dataset.art));
+  });
+
+  itemsEl.querySelectorAll('.qty-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const cart = getCart();
+      const item = cart.find(i => i.art_nr === btn.dataset.art);
+      if (!item) return;
+      const dir = parseInt(btn.dataset.dir, 10);
+      updateQty(item.art_nr, item.qty + dir);
+    });
   });
 }
 
@@ -82,11 +116,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeCart = document.getElementById('closeCart');
 
   if (cartBtn && cartPopup) {
-    cartBtn.addEventListener('click', () => cartPopup.classList.toggle('cart-popup--open'));
-    closeCart?.addEventListener('click', () => cartPopup.classList.remove('cart-popup--open'));
+    cartBtn.addEventListener('click', () => cartPopup.classList.toggle('open'));
+    closeCart?.addEventListener('click', () => cartPopup.classList.remove('open'));
     document.addEventListener('click', (e) => {
       if (!cartPopup.contains(e.target) && !cartBtn.contains(e.target)) {
-        cartPopup.classList.remove('cart-popup--open');
+        cartPopup.classList.remove('open');
       }
     });
   }
@@ -150,7 +184,7 @@ async function loadVariants() {
       : `<span class="product-card__price product-card__price--none">Pris på förfrågan</span>`;
 
     card.innerHTML = `
-      <div class="product-card__image">${svgs['fackverkstakstol']}</div>
+      <div class="product-card__image">${svgs[familyKod] || svgs['fackverkstakstol']}</div>
       <div class="product-card__body">
         <p class="product-card__name">${product.art_nr}</p>
         <div class="product-card__specs">
@@ -220,7 +254,7 @@ async function loadVariants() {
       const artNr = btn.dataset.art;
       const product = products.find(p => p.art_nr === artNr);
       if (!product) return;
-      addToCart(product);
+      addToCart(product, familyKod);
 
       btn.textContent = 'Tillagd ✓';
       btn.style.background = 'var(--color-green-600, #008761)';

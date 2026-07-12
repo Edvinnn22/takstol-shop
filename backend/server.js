@@ -41,9 +41,12 @@ app.get('/api/products', async (req, res) => {
       SELECT 
         p.*,
         pf.pdf_url,
-        pf.image_url
+        pf.image_url,
+        f.takstol_typ,
+        f.kod AS family_kod
       FROM products p
       LEFT JOIN product_files pf ON pf.product_id = p.id
+      LEFT JOIN product_families f ON f.id = p.family_id
       ORDER BY p.id ASC
     `);
     res.json(result.rows);

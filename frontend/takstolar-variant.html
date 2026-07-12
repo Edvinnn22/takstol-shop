@@ -104,7 +104,7 @@
   </section>
 
  <main >
-        <section class="container hero__products">
+        <section class="container hero__products" style="padding-top: var(--space-section); padding-bottom: var(--space-section);">
                 <div id="products-container"></div>
         </section>
  </main> 
@@ -118,7 +118,7 @@
 
 <div class="cart-popup" id="cartPopup">
   <div class="cart-popup__header">
-    <h5>Förfrågan</h5>
+    <h5>Din kundvagn</h5>
     <button id="closeCart">✕</button>
   </div>
 
@@ -126,14 +126,17 @@
     <p class="empty-cart">Inga produkter valda ännu.</p>
   </div>
 
+  <div class="cart-popup__total">
+    <span>Totalt</span>
+    <span id="cartPopupTotal">0 kr</span>
+  </div>
+
   <div class="cart-footer">
-    <a href="begar-offert.html" class="btn btn--primary">
-      Begär offert
+    <a href="checkout.html" class="btn btn--primary">
+      Gå till kassan
     </a>
   </div>
 </div>
-
-
 
   <script src="js/main.js" defer></script>
    <script src="js/svgs.js" defer></script>

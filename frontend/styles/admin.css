@@ -356,3 +356,128 @@ body {
   color: #92400e;
   margin-bottom: 0.75rem;
 }
+
+
+
+/* ─────────────────────────────
+   PRODUCTS: FAMILY GRID
+───────────────────────────── */
+
+.family-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: var(--space-4);
+}
+
+.family-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-2);
+  padding: var(--space-6) var(--space-4);
+  border: 1px solid rgba(0,33,105,0.08);
+  border-radius: var(--radius-lg);
+  background: white;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.family-card:hover {
+  border-color: var(--color-green-400);
+  transform: translateY(-2px);
+}
+
+.family-card__icon {
+  /* width: 48px;
+  height: 48px; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-blue-900);
+}
+
+.family-card__icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.family-card__name {
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-blue-900);
+  font-size: var(--text-sm);
+}
+
+.family-card__count {
+  font-size: var(--text-xs);
+  color: var(--color-neutral-500);
+}
+
+
+/* ─────────────────────────────
+   PRODUCTS: FAMILY DETAIL
+───────────────────────────── */
+
+.family-detail__back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: none;
+  border: none;
+  color: var(--color-blue-400);
+  font-size: var(--text-sm);
+  cursor: pointer;
+  padding: 0 0 var(--space-4);
+}
+
+.family-detail__back:hover {
+  color: var(--color-blue-900);
+}
+
+.family-detail__title {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  color: var(--color-blue-900);
+  margin-bottom: var(--space-5);
+}
+
+.product-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  background: white;
+  border: 1px solid rgba(0,33,105,0.08);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  margin-bottom: var(--space-2);
+}
+
+.product-row__art {
+  font-size: var(--text-xs);
+  color: var(--color-neutral-500);
+  min-width: 90px;
+}
+
+.product-row__name {
+  flex: 1;
+  font-size: var(--text-sm);
+  color: var(--color-neutral-800);
+}
+
+.product-row__price {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.admin-input--sm {
+  width: 100px;
+  padding: var(--space-2);
+}
+
+.admin-btn--sm {
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--text-xs);
+}

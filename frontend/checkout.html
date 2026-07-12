@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kassa | OBOS Takstolar</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles/tokens.css" />
+    <link rel="stylesheet" href="styles/base.css" />
+    <link rel="stylesheet" href="styles/nav.css" />
+    <link rel="stylesheet" href="styles/layout.css" />
+    <link rel="stylesheet" href="styles/product-card.css" />
+    <link rel="stylesheet" href="styles/checkout.css" />
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="nav">
+    <div class="container nav__inner">
+      <div class="nav__left">
+        <a href="index.html"><img src="assets/logos/horizontal/OBOS_Hvit-Gronn-kule_Liggende.svg" alt="OBOS logo"></a>
+      </div>
+
+      <nav class="nav__center">
+        <a href="takstolar.html" class="nav__link">Takstolar</a>
+        <a href="sa-fungerar-det.html" class="nav__link">Så fungerar det</a>
+        <a href="#" class="nav__link">Om oss</a>
+      </nav>
+
+      <div class="nav__right">
+        <a href="#" class="btn btn--ghost">Kontakta Oss</a>
+        <a href="begar-offert.html" class="btn btn--primary">Begär offert</a>
+
+        <div class="nav__cart">
+          <button class="cart-btn" id="cartBtn">
+            <svg viewBox="0 0 24 24" class="cart-icon">
+              <path
+                d="M6 8h12l-1 11H7L6 8zm3-2a3 3 0 016 0"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span class="cart-count" id="cartCount">0</span>
+          </button>
+        </div>
+
+        <div class="nav__toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="checkout container">
+      <div class="eyebrow-container">
+        <div class="eyebrow-rule-green"></div>
+        <div class="eyebrow-label-green">kassa</div>
+      </div>
+      <h1 class="h2-blue" style="text-transform:none; font-size:var(--text-4xl); padding-bottom: var(--space-8);">Slutför din beställning</h1>
+
+      <div class="checkout__inner">
+
+        <!-- ORDER SUMMARY -->
+        <div class="checkout__summary">
+          <h4>Din beställning</h4>
+          <div id="checkoutItems" class="checkout__items"></div>
+
+          <div class="checkout__row">
+            <span>Delsumma</span>
+            <span id="checkoutSubtotal">0 kr</span>
+          </div>
+          <div class="checkout__row checkout__row--total">
+            <span>Totalt</span>
+            <span id="checkoutTotal">0 kr</span>
+          </div>
+        </div>
+
+        <!-- CONTACT + PAYMENT FORM -->
+        <div class="checkout__form-card">
+          <h4>Kontaktuppgifter</h4>
+          <form id="checkoutForm">
+            <div class="form-group">
+              <label for="name">Namn</label>
+              <input type="text" id="name" name="name" required>
+            </div>
+
+            <div class="form-group">
+              <label for="email">E-post</label>
+              <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Telefon</label>
+              <input type="tel" id="phone" name="phone">
+            </div>
+
+            <div class="form-group">
+              <label for="message">Meddelande (valfritt)</label>
+              <textarea id="message" name="message" rows="3"></textarea>
+            </div>
+
+            <h4 style="margin-top: var(--space-8);">Betalning</h4>
+            <div class="checkout__payment-placeholder">
+              <p>Betalningsmetod (t.ex. kort via Stripe) läggs till här.</p>
+            </div>
+
+            <button type="submit" class="btn btn--primary checkout__submit">
+              Skicka beställning
+            </button>
+          </form>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <div class="cart-popup" id="cartPopup">
+    <div class="cart-popup__header">
+      <h5>Din kundvagn</h5>
+      <button id="closeCart">✕</button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <p class="empty-cart">Inga produkter valda ännu.</p>
+    </div>
+    <div class="cart-popup__total">
+      <span>Totalt</span>
+      <span id="cartPopupTotal">0 kr</span>
+    </div>
+    <div class="cart-footer">
+      <a href="checkout.html" class="btn btn--primary">Gå till kassan</a>
+    </div>
+  </div>
+
+  <script src="js/cart.js" defer></script>
+  <script src="js/main.js" defer></script>
+  <script src="js/svgs.js" defer></script>
+  <script src="js/checkout.js" defer></script>
+
+</body>
+</html>

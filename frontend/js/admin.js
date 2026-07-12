@@ -240,15 +240,86 @@ document.getElementById('results-list')?.addEventListener('click', async (e) => 
   }
 });
 
-// --- PRODUCTS LIST ---
+// --- PRODUCTS: FAMILY GRID + DRILL-DOWN ---
+
+const FAMILY_DISPLAY = {
+  'fackverkstakstol': 'Fackverkstakstol',
+  'saxtakstol': 'Saxtakstol',
+  'pulpettakstol': 'Pulpettakstol',
+  'atakstol': 'A-takstol',
+  'a-takstol': 'A-takstol',
+  'ramverkstakstol': 'Ramverkstakstol',
+  'mansardtakstol': 'Mansardtakstol',
+  'lantbrukstakstol': 'Lantbrukstakstol',
+  'bagtakstol': 'Bågtakstol',
+  'bågtakstol': 'Bågtakstol',
+  'specialtakstol': 'Specialtakstol',
+};
+
+function familyDisplayName(key) {
+  return FAMILY_DISPLAY[key] || (key.charAt(0).toUpperCase() + key.slice(1));
+}
+
+function familyIcon(key) {
+  return (svgs && (svgs[key] || svgs[key?.replace('-', '')])) || '';
+}
+
+let allProducts = [];
+
 async function loadProducts() {
   const res = await fetch('/api/products');
-  const products = await res.json();
+  allProducts = await res.json();
+  renderFamilyGrid();
+}
 
+function renderFamilyGrid() {
   const list = document.getElementById('product-list');
   if (!list) return;
 
-  list.innerHTML = products.map(p => `
+  // Group products by takstol_typ
+  const groups = {};
+  allProducts.forEach(p => {
+    const key = p.takstol_typ || 'okänd';
+    if (!groups[key]) groups[key] = [];
+    groups[key].push(p);
+  });
+
+  // Sort alphabetically by display name
+  const sortedKeys = Object.keys(groups).sort((a, b) =>
+    familyDisplayName(a).localeCompare(familyDisplayName(b), 'sv')
+  );
+
+  list.innerHTML = `
+    <div class="family-grid" id="family-grid">
+      ${sortedKeys.map(key => `
+        <button class="family-card" data-family="${key}">
+          <span class="family-card__icon">${familyIcon(key)}</span>
+          <span class="family-card__name">${familyDisplayName(key)}</span>
+          <span class="family-card__count">${groups[key].length} produkt${groups[key].length === 1 ? '' : 'er'}</span>
+        </button>
+      `).join('')}
+    </div>
+  `;
+
+  list.querySelectorAll('.family-card').forEach(card => {
+    card.addEventListener('click', () => renderFamilyDetail(card.dataset.family, groups[card.dataset.family]));
+  });
+}
+
+function renderFamilyDetail(familyKey, products) {
+  const list = document.getElementById('product-list');
+  if (!list) return;
+
+  list.innerHTML = `
+    <button class="family-detail__back" id="back-to-families">← Alla kategorier</button>
+    <h2 class="family-detail__title">${familyDisplayName(familyKey)}</h2>
+    <div id="family-products"></div>
+  `;
+
+  document.getElementById('back-to-families').addEventListener('click', renderFamilyGrid);
+
+  const container = document.getElementById('family-products');
+  container.innerHTML = products.map(p => `
     <div class="product-row" data-art="${p.art_nr}">
       <span class="product-row__art">${p.art_nr}</span>
       <span class="product-row__name">${p.namn}</span>
@@ -266,10 +337,10 @@ async function loadProducts() {
     </div>
   `).join('');
 
-  list.querySelectorAll('.price-save').forEach(btn => {
+  container.querySelectorAll('.price-save').forEach(btn => {
     btn.addEventListener('click', async () => {
       const art = btn.dataset.art;
-      const input = list.querySelector(`input[data-art="${art}"]`);
+      const input = container.querySelector(`input[data-art="${art}"]`);
       const pris_kr = input.value ? parseFloat(input.value) : null;
 
       await fetch(`/admin/api/product/${art}/price`, {
@@ -278,19 +349,23 @@ async function loadProducts() {
         body: JSON.stringify({ pris_kr }),
       });
 
+      // update local cache so the count/detail stays correct without a refetch
+      const prod = allProducts.find(p => p.art_nr === art);
+      if (prod) prod.pris_kr = pris_kr;
+
       btn.textContent = '✓';
       setTimeout(() => btn.textContent = 'Spara', 1500);
     });
   });
 
-  list.querySelectorAll('.product-delete').forEach(btn => {
+  container.querySelectorAll('.product-delete').forEach(btn => {
     btn.addEventListener('click', async () => {
       if (!confirm(`Ta bort ${btn.dataset.art}?`)) return;
       await fetch(`/admin/api/product/${btn.dataset.art}`, {
         method: 'DELETE',
         headers: { 'x-admin-token': adminPassword },
       });
-      loadProducts();
+      await loadProducts(); // refetch and drop back to the grid
     });
   });
 }
