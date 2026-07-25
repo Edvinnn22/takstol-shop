@@ -18,8 +18,8 @@
 <body>
 
   <!-- NAVBAR -->
-  <header class="nav">
-    <div class="container nav__inner">
+<header class="nav nav--solid">   
+   <div class="container nav__inner">
       <div class="nav__left">
         <a href="index.html"><img src="assets/logos/horizontal/OBOS_Hvit-Gronn-kule_Liggende.svg" alt="OBOS logo"></a>
       </div>
@@ -123,27 +123,35 @@
     </section>
   </main>
 
-  <div class="cart-popup" id="cartPopup">
-    <div class="cart-popup__header">
-      <h5>Din kundvagn</h5>
-      <button id="closeCart">✕</button>
-    </div>
-    <div class="cart-items" id="cartItems">
-      <p class="empty-cart">Inga produkter valda ännu.</p>
-    </div>
-    <div class="cart-popup__total">
-      <span>Totalt</span>
-      <span id="cartPopupTotal">0 kr</span>
-    </div>
-    <div class="cart-footer">
-      <a href="checkout.html" class="btn btn--primary">Gå till kassan</a>
-    </div>
+<div class="cart-popup" id="cartPopup">
+  <div class="cart-popup__header">
+    <h5>Förfrågan</h5>
+<button class="cart-item__remove" data-art="${item.art_nr}">
+  <svg viewBox="0 0 24 24" class="close-icon">
+    <line x1="5" y1="5" x2="19" y2="19" 
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+    <line x1="19" y1="5" x2="5" y2="19" 
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+  </svg>
+</button>
+
+</div>
+
+  <div class="cart-items" id="cartItems">
+    <p class="empty-cart">Inga produkter valda ännu.</p>
   </div>
 
-  <script src="js/cart.js" defer></script>
-  <script src="js/main.js" defer></script>
-  <script src="js/svgs.js" defer></script>
-  <script src="js/checkout.js" defer></script>
+  <div class="cart-footer">
+     <a href="checkout.html" class="btn btn--primary">
+      Gå till kassan
+    </a>
+  </div>
+</div>
+
+<script src="js/svgs.js" defer></script>
+<script src="js/products.js" defer></script>
+<script src="js/main.js" defer></script>
+<script src="js/checkout.js" defer></script>
 
 </body>
 </html>

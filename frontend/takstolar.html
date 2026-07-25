@@ -111,30 +111,26 @@
 
 
 
-
-  
-
-
-
-
-
 <div class="cart-popup" id="cartPopup">
   <div class="cart-popup__header">
-    <h5>Din kundvagn</h5>
-    <button id="closeCart">✕</button>
-  </div>
+    <h5>Förfrågan</h5>
+<button class="cart-item__remove" data-art="${item.art_nr}">
+  <svg viewBox="0 0 24 24" class="close-icon">
+    <line x1="5" y1="5" x2="19" y2="19" 
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+    <line x1="19" y1="5" x2="5" y2="19" 
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+  </svg>
+</button>
+
+</div>
 
   <div class="cart-items" id="cartItems">
     <p class="empty-cart">Inga produkter valda ännu.</p>
   </div>
 
-<div class="cart-popup__total">
-  <span>Totalt</span>
-  <span id="cartPopupTotal">0 kr</span>
-</div>
-
   <div class="cart-footer">
-    <a href="checkout.html" class="btn btn--primary">
+     <a href="checkout.html" class="btn btn--primary">
       Gå till kassan
     </a>
   </div>

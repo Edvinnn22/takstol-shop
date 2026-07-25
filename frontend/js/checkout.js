@@ -53,8 +53,14 @@ function renderCheckout() {
   document.getElementById('checkoutTotal').textContent = formatPrice(total);
 }
 
-function handleCheckoutSubmit(e) {
+async function handleCheckoutSubmit(e) {
   e.preventDefault();
+
+  const cart = getCart();
+  if (cart.length === 0) {
+    alert('Din kundvagn är tom.');
+    return;
+  }
 
   const formData = new FormData(e.target);
   const order = {
@@ -62,11 +68,37 @@ function handleCheckoutSubmit(e) {
     email: formData.get('email'),
     phone: formData.get('phone'),
     message: formData.get('message'),
-    cart: getCart(),
+    cart: cart,
     total: cartTotal()
   };
 
-  // Placeholder: will POST to /api/checkout once backend route + Stripe are wired up
-  console.log('Order ready to submit:', order);
-  alert('Betalningsintegration kommer snart. Din beställning har loggats i konsolen för test.');
+  const submitBtn = e.target.querySelector('.checkout__submit');
+  const originalText = submitBtn.textContent;
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Skickar...';
+
+  try {
+    const res = await fetch('/api/checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(order)
+    });
+
+    if (!res.ok) throw new Error('Server error');
+
+    localStorage.removeItem('cart');
+    updateCartUI();
+
+    document.getElementById('checkoutForm').style.display = 'none';
+    document.querySelector('.checkout__summary').innerHTML = `
+      <h4>Tack, ${order.name.split(' ')[0]}!</h4>
+      <p>Din beställning är mottagen. Vi återkommer till dig på <strong>${order.email}</strong> inom kort med en bekräftelse och nästa steg.</p>
+    `;
+  } catch (err) {
+    console.error('Checkout error:', err);
+    alert('Något gick fel när beställningen skulle skickas. Försök igen eller kontakta oss direkt.');
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.textContent = originalText;
+  }
 }

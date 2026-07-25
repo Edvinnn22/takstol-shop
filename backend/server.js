@@ -13,6 +13,10 @@ app.use(express.json());
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+// Verified sender domain — must be added & verified in your Resend dashboard first.
+// Until it's verified, sends to arbitrary visitor addresses will fail.
+const FROM_EMAIL = 'noreply@obostakstolar.se'; // <-- replace with your real verified domain
+
 const s3 = new S3Client({
   region: 'auto',
   endpoint: `https://${process.env.CLOUDFLARE_ACCOUNT_ID}.r2.cloudflarestorage.com`,
@@ -111,9 +115,11 @@ app.post('/api/contact', upload.array('filer', 10), async (req, res) => {
       ? `<p><strong>Bifogade filer:</strong></p><ul>${fileLinks.map(l => `<li><a href="${l}">${l}</a></li>`).join('')}</ul>`
       : '<p><strong>Bifogade filer:</strong> Inga</p>';
 
+    // Notification to OBOS (you)
     await resend.emails.send({
-      from: 'onboarding@resend.dev',
+      from: FROM_EMAIL,
       to: process.env.NOTIFY_EMAIL,
+      replyTo: epost,
       subject: `Ny förfrågan från ${namn}`,
       html: `
         <h2>Ny projektförfrågan</h2>
@@ -122,6 +128,18 @@ app.post('/api/contact', upload.array('filer', 10), async (req, res) => {
         <p><strong>Telefon:</strong> ${telefon || '—'}</p>
         <p><strong>Beskrivning:</strong><br>${beskrivning || '—'}</p>
         ${filesHtml}
+      `
+    });
+
+    // Confirmation back to the visitor
+    await resend.emails.send({
+      from: FROM_EMAIL,
+      to: epost,
+      subject: 'Vi har tagit emot din förfrågan – OBOS Takstolar',
+      html: `
+        <p>Hej ${namn},</p>
+        <p>Tack för din förfrågan till OBOS Takstolar. Vi har mottagit dina uppgifter och återkommer till dig så snart som möjligt.</p>
+        <p>Med vänliga hälsningar,<br>OBOS Takstolar</p>
       `
     });
 
@@ -154,8 +172,9 @@ app.post('/api/offert', async (req, res) => {
   ` : '';
 
   try {
+    // Notification to OBOS (you)
     await resend.emails.send({
-      from: 'onboarding@resend.dev',
+      from: FROM_EMAIL,
       to: process.env.NOTIFY_EMAIL,
       replyTo: email,
       subject: `Offertförfrågan – ${product?.art_nr || 'Okänd produkt'}`,
@@ -170,10 +189,95 @@ app.post('/api/offert', async (req, res) => {
       `
     });
 
+    // Confirmation back to the visitor
+    await resend.emails.send({
+      from: FROM_EMAIL,
+      to: email,
+      subject: 'Vi har tagit emot din offertförfrågan – OBOS Takstolar',
+      html: `
+        <p>Hej ${company},</p>
+        <p>Tack för din offertförfrågan${product?.art_nr ? ` gällande ${product.art_nr}` : ''}. Vi återkommer till dig så snart som möjligt.</p>
+        <p>Med vänliga hälsningar,<br>OBOS Takstolar</p>
+      `
+    });
+
     res.json({ ok: true });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Kunde inte skicka e-post' });
+  }
+});
+
+// Checkout / order submission (cart from Takstol Shop)
+app.post('/api/checkout', async (req, res) => {
+  const { name, email, phone, message, cart, total } = req.body;
+
+  if (!cart || cart.length === 0) {
+    return res.status(400).json({ error: 'Kundvagnen är tom' });
+  }
+
+  const itemsHtml = cart.map(item => `
+    <tr>
+      <td style="padding:4px 8px;">${item.art_nr}</td>
+      <td style="padding:4px 8px;">${item.spannvidd_mm} mm</td>
+      <td style="padding:4px 8px;">${item.takvinkel_grader}°</td>
+      <td style="padding:4px 8px;">${item.qty} st</td>
+      <td style="padding:4px 8px;">${item.pris_kr ? (item.pris_kr * item.qty).toLocaleString('sv-SE') + ' kr' : 'Pris på förfrågan'}</td>
+    </tr>
+  `).join('');
+
+  const orderTableHtml = `
+    <table style="border-collapse:collapse;">
+      <thead>
+        <tr>
+          <th style="padding:4px 8px;text-align:left;">Art.nr</th>
+          <th style="padding:4px 8px;text-align:left;">Spännvidd</th>
+          <th style="padding:4px 8px;text-align:left;">Vinkel</th>
+          <th style="padding:4px 8px;text-align:left;">Antal</th>
+          <th style="padding:4px 8px;text-align:left;">Pris</th>
+        </tr>
+      </thead>
+      <tbody>${itemsHtml}</tbody>
+    </table>
+    <p style="margin-top:12px;"><strong>Totalt: ${total.toLocaleString('sv-SE')} kr</strong></p>
+  `;
+
+  try {
+    // Notification to OBOS (you)
+    await resend.emails.send({
+      from: FROM_EMAIL,
+      to: process.env.NOTIFY_EMAIL,
+      replyTo: email,
+      subject: `Ny beställning från ${name}`,
+      html: `
+        <h2>Ny beställning</h2>
+        <p><strong>Namn:</strong> ${name}</p>
+        <p><strong>E-post:</strong> ${email}</p>
+        <p><strong>Telefon:</strong> ${phone || '—'}</p>
+        <p><strong>Meddelande:</strong><br>${message || '—'}</p>
+        <hr>
+        ${orderTableHtml}
+      `
+    });
+
+    // Confirmation back to the customer
+    await resend.emails.send({
+      from: FROM_EMAIL,
+      to: email,
+      subject: 'Din beställning är mottagen – OBOS Takstolar',
+      html: `
+        <p>Hej ${name},</p>
+        <p>Tack för din beställning. Här är en sammanfattning:</p>
+        ${orderTableHtml}
+        <p>Vi återkommer till dig så snart som möjligt.</p>
+        <p>Med vänliga hälsningar,<br>OBOS Takstolar</p>
+      `
+    });
+
+    res.json({ ok: true });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Kunde inte skicka beställning' });
   }
 });
 

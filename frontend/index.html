@@ -42,7 +42,7 @@
       </nav>
 
       <div class="nav__right">
-        <a href="#" class="btn btn--ghost">Kontakta Oss</a>          
+        <a href="kontakt.html" class="btn btn--ghost">Kontakta Oss</a>          
 <a href="begar-offert.html" class="btn btn--primary">Begär offert</a>  
 
 <div class="nav__cart">
@@ -54,7 +54,7 @@
         d="M6 8h12l-1 11H7L6 8zm3-2a3 3 0 016 0"
         fill="none"
         stroke="currentColor"
-        stroke-width="1.8"
+        stroke-width="1.8" 
         stroke-linecap="round"
         stroke-linejoin="round"
       />
@@ -93,7 +93,7 @@ Vi tillverkar takstolar för villor, radhus och flerfamiljshus — med exakta m�
         </p>
 
         <div class="btn-group">
-          <a href="begar-offert.html" class="btn btn--primary">Begär offert -></a>
+          <a href="begar-offert.html" class="btn btn--primary">Begär offert →</a>
           <a href="takstolar.html" class="btn btn--ghost">Se produkter</a>
         </div>
       </div>
@@ -264,7 +264,7 @@ Vi tillverkar takstolar för villor, radhus och flerfamiljshus — med exakta m�
 </div>
     </div>
     <div class="step-button">
-      <a href="#">Se hela processen steg för steg -></a>
+      <a href="#">Se hela processen steg för steg →</a>
     </div>
   </div>
 </section>
@@ -306,16 +306,24 @@ Vi tillverkar takstolar för villor, radhus och flerfamiljshus — med exakta m�
 <div class="cart-popup" id="cartPopup">
   <div class="cart-popup__header">
     <h5>Förfrågan</h5>
-    <button id="closeCart">✕</button>
-  </div>
+<button class="cart-item__remove" data-art="${item.art_nr}">
+  <svg viewBox="0 0 24 24" class="close-icon">
+    <line x1="5" y1="5" x2="19" y2="19" 
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+    <line x1="19" y1="5" x2="5" y2="19" 
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+  </svg>
+</button>
+
+</div>
 
   <div class="cart-items" id="cartItems">
     <p class="empty-cart">Inga produkter valda ännu.</p>
   </div>
 
   <div class="cart-footer">
-    <a href="begar-offert.html" class="btn btn--primary">
-      Begär offert
+    <a href="checkout.html" class="btn btn--primary">
+      Gå till kassan
     </a>
   </div>
 </div>

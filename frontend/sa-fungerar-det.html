@@ -42,12 +42,35 @@
         <a href="#" class="btn btn--ghost">Kontakta Oss</a>          
 <a href="begar-offert.html" class="btn btn--primary">Begär offert</a>  
      
+<div class="nav__cart">
+  <button class="cart-btn" id="cartBtn">
+    
+    <!-- Shopping bag SVG -->
+    <svg viewBox="0 0 24 24" class="cart-icon">
+      <path 
+        d="M6 8h12l-1 11H7L6 8zm3-2a3 3 0 016 0"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+
+    <span class="cart-count" id="cartCount">0</span>
+  </button>
+</div>
+    
+
 <div class="nav__toggle">
     <span></span>
     <span></span>
     <span></span>
 </div>
+
 </div>
+
+
     </div>
   </header>
 
@@ -206,8 +229,34 @@
     </main>
 
 
+<div class="cart-popup" id="cartPopup">
+  <div class="cart-popup__header">
+    <h5>Förfrågan</h5>
+<button class="cart-item__remove" data-art="${item.art_nr}">
+  <svg viewBox="0 0 24 24" class="close-icon">
+    <line x1="5" y1="5" x2="19" y2="19" 
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+    <line x1="19" y1="5" x2="5" y2="19" 
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+  </svg>
+</button>
+
+</div>
+
+  <div class="cart-items" id="cartItems">
+    <p class="empty-cart">Inga produkter valda ännu.</p>
+  </div>
+
+  <div class="cart-footer">
+    <a href="checkout.html" class="btn btn--primary">
+      Gå till kassan
+    </a>
+  </div>
+</div>
 
 <script src="js/main.js"></script>
+<script src="js/svgs.js" defer></script>
+  <script src="js/products.js" defer></script>
 <script src="js/accordion.js"></script>
 </body>
 </html>

@@ -77,9 +77,10 @@ function updateCartUI() {
         <span class="cart-item__meta">${item.spannvidd_mm} mm · ${item.takvinkel_grader}°</span>
         <div class="cart-item__qty-controls">
           <button class="qty-btn" data-art="${item.art_nr}" data-dir="-1">−</button>
-          <span>${item.qty} st</span>
           <button class="qty-btn" data-art="${item.art_nr}" data-dir="1">+</button>
-        </div>
+                  </div>
+
+          <span>${item.qty} st</span>
       </div>
       <div class="cart-item__right">
         ${item.pris_kr ? `<span class="cart-item__price">${formatPrice(item.pris_kr * item.qty)}</span>` : ''}

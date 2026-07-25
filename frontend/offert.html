@@ -8,8 +8,52 @@
   <link rel="stylesheet" href="styles/tokens.css">
   <link rel="stylesheet" href="styles/base.css">
   <link rel="stylesheet" href="styles/offert.css">
+  <link rel="stylesheet" href="styles/nav.css">
+  <link rel="stylesheet" href="styles/layout.css">
 </head>
 <body>
+
+   <!-- NAVBAR -->
+<header class="nav nav--solid">   
+   <div class="container nav__inner">
+      <div class="nav__left">
+        <a href="index.html"><img src="assets/logos/horizontal/OBOS_Hvit-Gronn-kule_Liggende.svg" alt="OBOS logo"></a>
+      </div>
+
+      <nav class="nav__center">
+        <a href="takstolar.html" class="nav__link">Takstolar</a>
+        <a href="sa-fungerar-det.html" class="nav__link">Så fungerar det</a>
+        <a href="#" class="nav__link">Om oss</a>
+      </nav>
+
+      <div class="nav__right">
+        <a href="#" class="btn btn--ghost">Kontakta Oss</a>
+        <a href="begar-offert.html" class="btn btn--primary">Begär offert</a>
+
+        <div class="nav__cart">
+          <button class="cart-btn" id="cartBtn">
+            <svg viewBox="0 0 24 24" class="cart-icon">
+              <path
+                d="M6 8h12l-1 11H7L6 8zm3-2a3 3 0 016 0"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span class="cart-count" id="cartCount">0</span>
+          </button>
+        </div>
+
+        <div class="nav__toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+  </header>
 
 <section class="quote-page">
   <div class="container quote-page__wrapper">
@@ -39,6 +83,33 @@
   </div>
 </section>
 
+
+<!-- <div class="cart-popup" id="cartPopup">
+  <div class="cart-popup__header">
+    <h5>Förfrågan</h5>
+<button class="cart-item__remove" data-art="${item.art_nr}">
+  <svg viewBox="0 0 24 24" class="close-icon">
+    <line x1="5" y1="5" x2="19" y2="19" 
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+    <line x1="19" y1="5" x2="5" y2="19" 
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+  </svg>
+</button>
+
+</div>
+
+  <div class="cart-items" id="cartItems">
+    <p class="empty-cart">Inga produkter valda ännu.</p>
+  </div>
+
+  <div class="cart-footer">
+    <a href="checkout.html" class="btn btn--primary">
+      Gå till kassan
+    </a>
+  </div>
+</div> -->
+
+<script src="js/main.js" defer></script>
 <script src="js/svgs.js"></script>
 <script src="js/offert.js"></script>
 </body>
