@@ -3,74 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Så fungerar det | OBOS Takstolar</title>
 
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 
-      <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-
-  <!-- Styles -->
-  <link rel="stylesheet" href="styles/tokens.css" />
-  <link rel="stylesheet" href="styles/base.css" />
-  <link rel="stylesheet" href="styles/nav.css" />
-  <link rel="stylesheet" href="styles/layout.css" />
-  <link rel="stylesheet" href="styles/nav.css" />
-  <link rel="stylesheet" href="styles/process.css" />
-  <!-- <link rel="stylesheet" href="styles/steps.css" /> -->
-  <link rel="stylesheet" href="styles/faqs.css" />
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles/tokens.css" />
+    <link rel="stylesheet" href="styles/base.css" />
+    <link rel="stylesheet" href="styles/nav.css" />
+    <link rel="stylesheet" href="styles/layout.css" />
+    <link rel="stylesheet" href="styles/process.css" />
+    <link rel="stylesheet" href="styles/timeline.css" />
+    <link rel="stylesheet" href="styles/faqs.css" />
+    <link rel="stylesheet" href="styles/footer.css" />
 </head>
 <body>
-    
-<!-- NAVBAR --> 
+
+<!-- NAVBAR -->
   <header class="nav">
     <div class="container nav__inner">
       <div class="nav__left">
-                <a href="index.html"><img src="assets/logos/horizontal/OBOS_Hvit-Gronn-kule_Liggende.svg" alt="OBOS logo"></a>
-
+        <a href="index.html"><img src="assets/logos/horizontal/OBOS_Hvit-Gronn-kule_Liggende.svg" alt="OBOS logo"></a>
       </div>
 
       <nav class="nav__center">
-        <!-- <a href="index.html" class="nav__link ">Hem</a> -->
         <a href="takstolar.html" class="nav__link">Takstolar</a>
         <a href="sa-fungerar-det.html" class="nav__link active">Så fungerar det</a>
         <a href="#" class="nav__link">Om oss</a>
-        <!-- <a href="#" class="nav__link">Kontakt</a> -->
       </nav>
 
       <div class="nav__right">
-        <a href="#" class="btn btn--ghost">Kontakta Oss</a>          
-<a href="begar-offert.html" class="btn btn--primary">Begär offert</a>  
-     
-<div class="nav__cart">
-  <button class="cart-btn" id="cartBtn">
-    
-    <!-- Shopping bag SVG -->
-    <svg viewBox="0 0 24 24" class="cart-icon">
-      <path 
-        d="M6 8h12l-1 11H7L6 8zm3-2a3 3 0 016 0"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
-    </svg>
+        <a href="kontakt.html" class="btn btn--ghost">Kontakta Oss</a>
+        <a href="begar-offert.html" class="btn btn--primary">Begär offert</a>
 
-    <span class="cart-count" id="cartCount">0</span>
-  </button>
-</div>
-    
+        <div class="nav__cart">
+          <button class="cart-btn" id="cartBtn">
+            <div class="cart-icon" data-icon="cartBag"></div>
+            <span class="cart-count" id="cartCount">0</span>
+          </button>
+        </div>
 
-<div class="nav__toggle">
-    <span></span>
-    <span></span>
-    <span></span>
-</div>
-
-</div>
-
-
+        <div class="nav__toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -79,184 +59,303 @@
     <div class="container hero__inner">
       <div class="hero__content">
         <div class="eyebrow-container">
-            <div class="eyebrow-rule"></div>
-            <div class="eyebrow-label">processen</div>
+          <div class="eyebrow-rule"></div>
+          <div class="eyebrow-label">processen</div>
         </div>
 
-        <h1> ritning till leverans. </h1>
+        <h1>RITNING TILL LEVERANS.</h1>
         <p class="hero__text">
-          Specialiserad tillverkning av takstolar för industriellt byggande.
+          Specialiserad tillverkning av takstolar för industriellt byggande — från första skiss till montering på plats.
         </p>
 
-       <div class="btn-group">
-          <a href="#" class="btn btn--primary">Se produkter</a>
-          <a href="#" class="btn btn--ghost">Kontakta oss</a>
+        <div class="btn-group">
+          <a href="takstolar.html" class="btn btn--primary">Se produkter</a>
+          <a href="kontakt.html" class="btn btn--ghost">Kontakta oss</a>
         </div>
       </div>
     </div>
   </section>
 
-    <main>
-        <section class="container process__container">
+  <main>
+
+    <!-- WHAT WE NEED FROM YOU -->
+    <section class="container process__container">
+      <div class="eyebrow-container">
+        <div class="eyebrow-rule-green"></div>
+        <div class="eyebrow-label-green">INNAN du börjar</div>
+      </div>
+
+      <h2 class="h2-blue" style="padding-bottom: var(--space-12);">Det här behöver vi från dig.</h2>
+
+      <div class="process-steps">
+
+        <div class="step">
+          <div class="step__number">01</div>
+          <div class="step__icon" data-icon="blueprint"></div>
+          <h4>Bygglovsritningar</h4>
+          <p>Plan-, fasad- och sektionsritningar med skalangivelse. PDF eller DWG.</p>
+          <span class="step__tag">PDF · DWG · DXF</span>
+        </div>
+
+        <div class="step">
+          <div class="step__number">02</div>
+          <div class="step__icon" data-icon="ruler"></div>
+          <h4>Byggnadens mått</h4>
+          <p>Total spännvidd (mm), nockhöjd och c/c-avstånd.</p>
+          <span class="step__tag">Vanligen 600–1200 mm</span>
+        </div>
+
+        <div class="step">
+          <div class="step__number">03</div>
+          <div class="step__icon" data-icon="snowload"></div>
+          <h4>Lastspecifikationer</h4>
+          <p>Snölast (kN/m²) och vindzon enligt PBL.</p>
+          <span class="step__tag">Eurokod 5</span>
+        </div>
+
+        <div class="step">
+          <div class="step__number">04</div>
+          <div class="step__icon" data-icon="calendarCheck"></div>
+          <h4>Önskad leveransdag</h4>
+          <p>Minst 5 arbetsdagars framförhållning.</p>
+          <span class="step__tag">Min. 5 arbetsdagar</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- STEP-BY-STEP TIMELINE -->
+    <section class="steps-section">
+      <div class="container timeline__container">
+        <div class="eyebrow-container">
+          <div class="eyebrow-rule-green"></div>
+          <div class="eyebrow-label-green">steg för steg</div>
+        </div>
+        <h2 class="h2-blue">Från förfrågan till leverans.</h2>
+        <p class="muted">Varje steg har en tydlig ansvarspart, ett förväntat resultat och en tidsram.</p>
+
+        <div class="timeline">
+
+          <div class="timeline__item">
+            <div class="timeline__marker">
+              <div class="timeline__dot">01</div>
+              <div class="timeline__line"></div>
+            </div>
+            <div class="timeline__card">
+              <div class="timeline__card-head">
+                <div class="timeline__icon" data-icon="uploadArrow"></div>
+                <span class="timeline__tag">Dag 0 · Du</span>
+              </div>
+              <h4>Skicka in förfrågan</h4>
+              <p>Du laddar upp ritningar, mått och lastuppgifter via vårt offertformulär. Ju mer komplett underlag, desto snabbare och mer exakt blir offerten.</p>
+            </div>
+          </div>
+
+          <div class="timeline__item">
+            <div class="timeline__marker">
+              <div class="timeline__dot">02</div>
+              <div class="timeline__line"></div>
+            </div>
+            <div class="timeline__card">
+              <div class="timeline__card-head">
+                <div class="timeline__icon" data-icon="engineerCheck"></div>
+                <span class="timeline__tag">Dag 1–2 · Oss</span>
+              </div>
+              <h4>Konstruktion & offert</h4>
+              <p>Våra konstruktörer granskar underlaget, gör beräkningar enligt Eurokod 5 och tar fram en offert med preliminära skisser.</p>
+            </div>
+          </div>
+
+          <div class="timeline__item">
+            <div class="timeline__marker">
+              <div class="timeline__dot">03</div>
+              <div class="timeline__line"></div>
+            </div>
+            <div class="timeline__card">
+              <div class="timeline__card-head">
+                <div class="timeline__icon" data-icon="approvalCheck"></div>
+                <span class="timeline__tag">Din tid · Du</span>
+              </div>
+              <h4>Godkännande</h4>
+              <p>Du granskar offert och ritningar. Mindre justeringar görs kostnadsfritt innan du bekräftar beställningen.</p>
+            </div>
+          </div>
+
+          <div class="timeline__item">
+            <div class="timeline__marker">
+              <div class="timeline__dot">04</div>
+              <div class="timeline__line"></div>
+            </div>
+            <div class="timeline__card">
+              <div class="timeline__card-head">
+                <div class="timeline__icon" data-icon="cncBars"></div>
+                <span class="timeline__tag">Dag 3–4 · Oss</span>
+              </div>
+              <h4>Produktion & CNC</h4>
+              <p>Ritningarna matas in i vår CNC-styrda produktionslinje. Varje del kapas och märks med ±1 mm tolerans, sedan pressas takstolarna samman.</p>
+            </div>
+          </div>
+
+          <div class="timeline__item timeline__item--last">
+            <div class="timeline__marker">
+              <div class="timeline__dot">05</div>
+            </div>
+            <div class="timeline__card">
+              <div class="timeline__card-head">
+                <div class="timeline__icon" data-icon="truck"></div>
+                <span class="timeline__tag">Dag 5 · Oss</span>
+              </div>
+              <h4>Leverans på plats</h4>
+              <p>Märkta takstolar levereras med kranbil enligt din önskade leveransdag, tillsammans med monteringsplan och CE-dokumentation.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+      <div class="container faqs_container">
+        <div class="faq">
           <div class="eyebrow-container">
             <div class="eyebrow-rule-green"></div>
-            <div class="eyebrow-label-green" >INNAN du börjar</div>
-        </div>
+            <div class="eyebrow-label-green">vanliga frågor</div>
+          </div>
+          <h2 class="h2-blue">Det du troligtvis undrar.</h2>
+          <p class="muted">Svar på alla vanligaste frågorna.</p>
 
-         <h2 class="h2-blue" style="padding-bottom: var(--space-12);">Det här behöver vi från dig. </h2>
-       
-  <div class="process-steps">
-  <div class="step">
-    <div class="step__number">01</div>
-    <div class="step__icon">
+          <div class="accordion">
 
-    </div>
-    <h4>Bygglovsritningar</h4>
-    <p>Plan-, fasad- och sektionsritningar med skalangivelse. PDF eller DWG.</p>
-    <span class="step__tag">PDF · DWG · DXF</span>
-  </div>
+            <div class="accordion__item">
+              <button class="accordion__header">
+                <span>Hur lång tid tar det egentligen?</span>
+                <span class="accordion__icon">
+                  <span class="accordion__plus">+</span>
+                </span>
+              </button>
+              <div class="accordion__content">
+                <p>Från godkänd offert räknar vi 3–5 arbetsdagar till leverans. Kortast vi klarat är 2 dagar vid enkla konstruktioner. Gransknings- och offertsteg tar 1–2 dagar — sedan är det din svarstid som avgör starten.</p>
+              </div>
+            </div>
 
-  <div class="step">
-    <div class="step__number">02</div>
-    <div class="step__icon">
+            <div class="accordion__item">
+              <button class="accordion__header">
+                <span>Vad händer om mina ritningar inte är kompletta?</span>
+                <span class="accordion__icon">
+                  <span class="accordion__plus">+</span>
+                </span>
+              </button>
+              <div class="accordion__content">
+                <p>Vår konstruktör granskar alltid underlaget innan offert tas fram. Om information saknas — snölast, exakt spännvidd eller c/c-mått — kontaktar vi dig direkt. Vi kan ofta komplettera med standardvärden för din region, men vi vill ha din bekräftelse på alla antaganden.</p>
+              </div>
+            </div>
 
-    </div>
-    <h4>Byggnadens mått</h4>
-    <p>Total spännvidd (mm), nockhöjd och c/c-avstånd.</p>
-    <span class="step__tag">Vanligen 600–1200 mm</span>
-  </div>
+            <div class="accordion__item">
+              <button class="accordion__header">
+                <span>Kan jag göra ändringar efter att jag godkänt offerten?</span>
+                <span class="accordion__icon">
+                  <span class="accordion__plus">+</span>
+                </span>
+              </button>
+              <div class="accordion__content">
+                <p>Mindre justeringar går ofta att göra fram tills produktionen påbörjas. Kontakta oss så snart som möjligt om något behöver ändras — större ändringar kan påverka leveranstiden.</p>
+              </div>
+            </div>
 
-  <div class="step">
-    <div class="step__number">03</div>
-    <div class="step__icon">
+            <div class="accordion__item">
+              <button class="accordion__header">
+                <span>Levererar ni till hela Sverige?</span>
+                <span class="accordion__icon">
+                  <span class="accordion__plus">+</span>
+                </span>
+              </button>
+              <div class="accordion__content">
+                <p>Ja, vi levererar i hela landet. Fraktkostnad ingår i offerten och beräknas utifrån leveransadress.</p>
+              </div>
+            </div>
 
-    </div>
-    <h4>Lastspecifikationer</h4>
-    <p>Snölast (kN/m²) och vindzon enligt PBL.</p>
-    <span class="step__tag">Eurokod 5</span>
-  </div>
+          </div>
 
-  <div class="step">
-    <div class="step__number">04</div>
-    <div class="step__icon">
-      
-    </div>
-    <h4>Önskad leveransdag</h4>
-    <p>Minst 5 arbetsdagars framförhållning.</p>
-    <span class="step__tag">Min. 5 arbetsdagar</span>
-  </div>
+          <p class="muted" style="padding-top: var(--space-6);">Hittar du inte svaret? Ring oss direkt på <span style="color: var(--color-blue-400);">010-123 45 67</span> — vi svarar alla vardagar 07–16.</p>
 
-</div>
-</section>
-
-   <section class="steps-section">
-  <div class="container steps_container">
-    <div class="step-by-step">
-      <div class="eyebrow-container">
-        <div class="eyebrow-rule-green"></div>
-        <div class="eyebrow-label-green">
-          steg för steg
-        </div>
-      </div>
-  <h2 class="h2-blue">Från förfrågan till leverans. </h2>
-      <p class="muted">Varje steg har en tydlig ansvarspart, ett förväntat resultat och en tidsram.</p>
-
-
-
-
-    </div>
-  </div>
-</section>
-
-
- <section class="faq-section">
-  <div class="container faqs_container">
-    <div class="faq">
-      <div class="eyebrow-container">
-        <div class="eyebrow-rule-green"></div>
-        <div class="eyebrow-label-green" >
-          vanliga frågor
         </div>
       </div>
-  <h2 class="h2-blue">Det du troligtvis undrar. </h2>
-      <p class="muted" > Svar på alla vanligaste frågorna. </p>
+    </section>
 
-<div class="accordion">
+  </main>
 
-  <div class="accordion__item">
-    <button class="accordion__header">
-      <span>Hur lång tid tar det egentligen?</span>
-      <span class="accordion__icon">
-        <span class="accordion__plus">+</span>
-      </span>
-    </button>
-    <div class="accordion__content">
-      <p>
-        Från godkänd offert räknar vi 3–5 arbetsdagar till leverans. Kortast vi klarat är 2 dagar vid enkla konstruktioner. Gransknings- och offertsteg tar 1–2 dagar — sedan är det din svarstid som avgör starten.
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer__inner">
 
+      <div class="footer__col footer__col--brand">
+        <img src="assets/logos/horizontal/OBOS_Hvit-Gronn-kule_Liggende.svg" alt="OBOS logo" class="footer__logo">
+        <p class="footer__tagline">Precisionstillverkade takstolar för villor, radhus och flerfamiljshus — med full ingenjörsdokumentation.</p>
+      </div>
 
-      </p>
+      <div class="footer__col">
+        <h6 class="footer__heading">Produkter</h6>
+        <ul class="footer__links">
+          <li><a href="takstolar.html">Alla takstolar</a></li>
+          <li><a href="takstolar.html">Fackverkstakstol</a></li>
+          <li><a href="takstolar.html">Saxtakstol</a></li>
+          <li><a href="takstolar.html">A-takstol</a></li>
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <h6 class="footer__heading">Företaget</h6>
+        <ul class="footer__links">
+          <li><a href="#">Om oss</a></li>
+          <li><a href="sa-fungerar-det.html">Så fungerar det</a></li>
+          <li><a href="kontakt.html">Kontakt</a></li>
+          <li><a href="begar-offert.html">Begär offert</a></li>
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <h6 class="footer__heading">Kontakta oss</h6>
+        <ul class="footer__links footer__links--contact">
+          <li><a href="mailto:info@obostakstolar.se">info@obostakstolar.se</a></li>
+          <li><a href="tel:+46000000000">+46 (0)00 000 00 00</a></li>
+          <li>Vetlanda, Sverige</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer__bottom">
+      <div class="container footer__bottom-inner">
+        <p>&copy; 2026 OBOS Sverige AB — Takstolar. Alla rättigheter förbehållna.</p>
+        <div class="footer__legal">
+          <a href="#">Villkor</a>
+          <a href="#">Integritetspolicy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CART POPUP -->
+  <div class="cart-popup" id="cartPopup">
+    <div class="cart-popup__header">
+      <h5>Förfrågan</h5>
+    </div>
+
+    <div class="cart-items" id="cartItems">
+      <p class="empty-cart">Inga produkter valda ännu.</p>
+    </div>
+
+    <div class="cart-footer">
+      <a href="checkout.html" class="btn btn--primary">
+        Gå till kassan
+      </a>
     </div>
   </div>
 
-  <div class="accordion__item">
-    <button class="accordion__header">
-      <span>Vad händer om mina ritningar inte är kompletta?</span>
-      <span class="accordion__icon">
-        <span class="accordion__plus">+</span>
-      </span>
-    </button>
-    <div class="accordion__content">
-      <p>
-        Vår konstruktör granskar alltid underlaget innan offert tas fram. Om information saknas — snölast, exakt spännvidd eller c/c-mått — kontaktar vi dig direkt. Vi kan ofta komplettera med standardvärden för din region, men vi vill ha din bekräftelse på alla antaganden.
-
-
-      </p>
-    </div>
-  </div>
-
-</div> 
-      <p class="muted" style="padding-top: var(--space-6);" > Hittar du inte svaret? Ring oss direkt på <span style="color: var(--color-blue-400);">010-123 45 67</span> — vi svarar alla vardagar 07–16.</p>
-
-
-    </div>
-  </div>
-</section>
-
-
-
-
-    </main>
-
-
-<div class="cart-popup" id="cartPopup">
-  <div class="cart-popup__header">
-    <h5>Förfrågan</h5>
-<button class="cart-item__remove" data-art="${item.art_nr}">
-  <svg viewBox="0 0 24 24" class="close-icon">
-    <line x1="5" y1="5" x2="19" y2="19" 
-          stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-    <line x1="19" y1="5" x2="5" y2="19" 
-          stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-  </svg>
-</button>
-
-</div>
-
-  <div class="cart-items" id="cartItems">
-    <p class="empty-cart">Inga produkter valda ännu.</p>
-  </div>
-
-  <div class="cart-footer">
-    <a href="checkout.html" class="btn btn--primary">
-      Gå till kassan
-    </a>
-  </div>
-</div>
-
-<script src="js/main.js"></script>
-<script src="js/svgs.js" defer></script>
+  <script src="js/main.js"></script>
+  <script src="js/svgs.js" defer></script>
   <script src="js/products.js" defer></script>
-<script src="js/accordion.js"></script>
+  <script src="js/accordion.js"></script>
 </body>
 </html>

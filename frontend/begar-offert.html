@@ -27,72 +27,45 @@
       <a href="#" class="nav__link">Om oss</a>
     </nav>
     <div class="nav__right">
-      <a href="#" class="btn btn--ghost">Kontakta Oss</a>
+      <a href="kontakt.html" class="btn btn--ghost">Kontakta Oss</a>
       <a href="begar-offert.html" class="btn btn--primary">Begär offert</a>
 
-
-
       <div class="nav__cart">
-  <button class="cart-btn" id="cartBtn">
-    
-    <!-- Shopping bag SVG -->
-    <svg viewBox="0 0 24 24" class="cart-icon">
-      <path 
-        d="M6 8h12l-1 11H7L6 8zm3-2a3 3 0 016 0"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
-    </svg>
+        <button class="cart-btn" id="cartBtn">
+          <div class="cart-icon" data-icon="cartBag"></div>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+      </div>
 
-    <span class="cart-count" id="cartCount">0</span>
-  </button>
-</div>
-    
-
-<div class="nav__toggle">
-    <span></span>
-    <span></span>
-    <span></span>
-</div>
-
-</div>
-
-
+      <div class="nav__toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
     </div>
+  </div>
 </header>
 
   <!-- HERO -->
   <section class="hero">
     <div class="container hero__inner">
       <div class="hero__content">
-        <!-- <div class="eyebrow-container">
-            <div class="eyebrow-rule"></div>
-            <div class="eyebrow-label">OBOS division</div>
-        </div> -->
-
         <h1>PRECISION I VARJE VINKEL.</h1>
         <p class="hero__text">
-Vi tillverkar takstolar för villor, radhus och flerfamiljshus — med exakta mått, snabb leverans och full ingenjörsdokumentation.
-
+          Vi tillverkar takstolar för villor, radhus och flerfamiljshus — med exakta mått, snabb leverans och full ingenjörsdokumentation.
         </p>
 
         <div class="btn-group">
-          <a href="begar-offert.html" class="btn btn--primary">Begär offert -></a>
+          <a href="begar-offert.html" class="btn btn--primary">Begär offert →</a>
           <a href="takstolar.html" class="btn btn--ghost">Se produkter</a>
         </div>
       </div>
     </div>
   </section>
 
-
 <section class="section pf-page">
   <div class="container">
     <div class="pf-split">
-
-    
 
       <!-- RIGHT: Info panel (30%) -->
       <div class="pf-right">
@@ -125,8 +98,7 @@ Vi tillverkar takstolar för villor, radhus och flerfamiljshus — med exakta m�
         </div>
       </div>
 
-
-        <!-- LEFT: Form (70%) -->
+      <!-- LEFT: Form (70%) -->
       <div class="pf-left">
         <div class="pf-wrap">
 
@@ -167,11 +139,7 @@ Vi tillverkar takstolar för villor, radhus och flerfamiljshus — med exakta m�
             <div class="pf-field">
               <div class="pf-drop" id="dropzone">
                 <input type="file" id="fileInput" name="filer" multiple accept=".pdf,.dwg,.jpg,.jpeg,.png" aria-label="Ladda upp filer">
-                <div class="pf-drop-icon">
-                  <svg viewBox="0 0 16 16" aria-hidden="true">
-                    <path d="M8 10V2M5 5l3-3 3 3M3 12v1a1 1 0 001 1h8a1 1 0 001-1v-1"/>
-                  </svg>
-                </div>
+                <div class="pf-drop-icon" data-icon="fileUpload"></div>
                 <p>Dra och släpp filer här</p>
                 <span>PDF, DWG, JPG — max 20 MB per fil</span>
               </div>
@@ -181,11 +149,7 @@ Vi tillverkar takstolar för villor, radhus och flerfamiljshus — med exakta m�
             <button class="pf-submit" type="submit">Skicka in ansökan</button>
 
             <div class="pf-success" id="successBanner" aria-live="polite">
-              <div class="pf-success-icon">
-                <svg viewBox="0 0 10 10" aria-hidden="true">
-                  <path d="M2 5l2.5 2.5L8 3"/>
-                </svg>
-              </div>
+              <div class="pf-success-icon" data-icon="checkSmall"></div>
               <span>Tack! Vi återkommer inom 2 arbetsdagar.</span>
             </div>
 
@@ -199,36 +163,25 @@ Vi tillverkar takstolar för villor, radhus och flerfamiljshus — med exakta m�
   </div>
 </section>
 
+  <div class="cart-popup" id="cartPopup">
+    <div class="cart-popup__header">
+      <h5>Förfrågan</h5>
+    </div>
 
-<div class="cart-popup" id="cartPopup">
-  <div class="cart-popup__header">
-    <h5>Förfrågan</h5>
-<button class="cart-item__remove" data-art="${item.art_nr}">
-  <svg viewBox="0 0 24 24" class="close-icon">
-    <line x1="5" y1="5" x2="19" y2="19" 
-          stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-    <line x1="19" y1="5" x2="5" y2="19" 
-          stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-  </svg>
-</button>
+    <div class="cart-items" id="cartItems">
+      <p class="empty-cart">Inga produkter valda ännu.</p>
+    </div>
 
-</div>
-
-  <div class="cart-items" id="cartItems">
-    <p class="empty-cart">Inga produkter valda ännu.</p>
+    <div class="cart-footer">
+      <a href="checkout.html" class="btn btn--primary">
+        Gå till kassan
+      </a>
+    </div>
   </div>
-
-  <div class="cart-footer">
-    <a href="checkout.html" class="btn btn--primary">
-      Gå till kassan
-    </a>
-  </div>
-</div>
-
 
 <script src="js/main.js"></script>
 <script src="js/svgs.js"></script>
 <script src="js/form.js"></script>
-  <script src="js/products.js" defer></script>
+<script src="js/products.js" defer></script>
 </body>
 </html>
